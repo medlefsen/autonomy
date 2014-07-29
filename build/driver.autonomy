@@ -1,0 +1,24 @@
+create drone scan-miner.adl 5 5 400
+create drone scan-miner.adl -5 5 400
+create drone scan-miner.adl 5 -5 400
+create drone scan-miner.adl -5 -5 400
+create drone move-miner.adl 10 10 400
+create drone move-miner.adl -10 10 400
+create drone move-miner.adl 10 -10 400
+create drone randmove.adl 7 7 400
+create drone randmove.adl 7 -7 400
+create drone randmove.adl -7 7 400
+create drone randmove.adl -7 -7 400
+create drone scan-mine-return.adl 12 12 400
+create drone scan-mine-return.adl 12 -12 400
+create drone scan-mine-return.adl -12 12 400
+create drone scan-mine-return.adl -12 -12 400
+create asteroid 3 3 400
+create asteroid -3 3 400
+create asteroid 3 -3 400
+create asteroid -3 -3 400
+create asteroid 13 13 400
+create asteroid -13 13 400
+create asteroid 13 -13 400
+create asteroid -13 -13 400
+start

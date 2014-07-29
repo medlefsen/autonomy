@@ -1,0 +1,45 @@
+int $x;
+int $y;
+int $obj;
+int $side_length;
+int $move_dir;
+
+int $dist;
+int $fuel_gained;
+
+$y := get_y();
+$side_length := 1;
+$move_dir := rand_dir();
+
+while 1 
+{
+    $dist := $side_length;
+    while $dist 
+    {
+        $x := get_x() + $move_dir;
+        $obj :=  scan($x,$y);
+        if is_asteroid($obj)
+        {
+            while ( mine($x,$y) ) {}
+        }
+
+        move($move_dir,0);
+        $dist := $dist - 1;
+    }
+
+    $dist := $side_length;
+    while $dist 
+    {
+        $y := get_y() + $move_dir;
+        $obj := scan($x,$y);
+        if is_asteroid($obj)
+        {
+            while ( mine($x,$y) ) {}
+        }
+
+        move(0,$move_dir);
+        $dist := $dist - 1;
+    }
+    $side_length := $side_length + 1;
+    $move_dir := rand_dir(); 
+}

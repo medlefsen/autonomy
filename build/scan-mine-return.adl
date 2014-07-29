@@ -1,0 +1,117 @@
+int $x;
+int $y;
+int $obj;
+int $side_length;
+int $adv_dir;
+int $adv_axis;
+
+int $x_dir;
+int $y_dir;
+
+int $dist;
+
+int $cur_x;
+int $cur_y;
+
+
+while 1
+{
+    $x           := get_x();
+    $y           := get_y();
+    $obj         := scan($x,$y); # guaranteed to be the drone, this is okay
+    $side_length := 1;
+    $dist        := 1;
+    $adv_axis    := 1; # 1 = x, 0 = y
+    $adv_dir     := 1;
+    while ( not is_asteroid($obj) )
+    {
+        $dist := $dist - 1;
+        if ( $adv_axis )
+        {
+            $x := $x + $adv_dir;
+        }
+        else
+        {
+            $y := $y + $adv_dir;
+        }
+
+        if ( not $dist )
+        {
+            if ( $adv_axis )
+            {
+                $side_length := $side_length + 1;
+                $adv_dir     := $adv_dir * -1;
+            }
+            $adv_axis := 1 - $adv_axis;
+            $dist      := $side_length;
+        }
+        $obj := scan($x,$y);
+    }
+
+    # pretend for the moment that we actually have to get there
+    # pretend also that we cannot move diagonally (which for the moment we
+    # can)
+    if ( get_y() < $y )
+    { 
+        $y       := $y - 1; 
+        $y_dir := 1;
+    }
+    elseif ( get_y() = 0 )
+    {
+        $y_dir := 0;
+    }
+    else
+    { 
+        $y       := $y + 1; 
+        $y_dir := -1;
+    }
+    while ( not $y = get_y() )
+    {
+        move(0,$y_dir);
+    }
+
+    if ( get_x() < $x )
+    { 
+        $x       := $x - 1; 
+        $x_dir := 1;
+    }
+    elseif ( get_x() = 0 )
+    {
+        $x_dir := 0;
+    }
+    else
+    { 
+        $x       := $x + 1; 
+        $x_dir := -1;
+    }
+
+    while ( not $x = get_x() )
+    {
+        move($x_dir,0);
+    }
+
+    while ( mine($x+$x_dir,$y+$y_dir) ){ }
+    #for the sake of consistency, this part doesn't move diagonally, either
+    while ( (( not get_x() = 1 ) and ( not get_x() = -1 )) or 
+            (( not get_y() = 1 ) and ( not get_y() = -1 )) )
+    {
+        if ( not ( ( get_x() < 0 ) or ( get_x() = 0) ) )
+        {
+            move(-1,0);
+        }
+        elseif ( get_x() < 0 )
+        {
+            move(1,0);
+        }
+        if ( not ( ( get_y() < 0 ) or ( get_y() = 0) ) )
+        {
+            move(0,-1);
+        }
+        elseif ( get_y() < 0 )
+        {
+            move(0,1);
+        }
+    }
+
+    while ( unload(0,0) ){ }
+}

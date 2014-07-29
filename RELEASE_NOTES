@@ -1,0 +1,25 @@
+== Iteration 1 - 03/14/08 ==
+
+ * Interpreter Pool
+ * Interpreter Engine
+ * Compiled Script
+ * Language Features Design
+ * Lexemes Specification
+ * Grammar Specification
+ * Lexical Analyzer
+ * Parser
+ * Bytecode Compiler
+ * Map Storage
+ * Object Class hierarchy
+
+== Iteration 1 - 03/07/08 ==
+= works =
+ * Game Board
+ * Drones with precompiled scripts that can move around and do math
+ * Basic driver script that can be edited
+
+= doesn't work =
+ * UI
+ * Compiler
+ * Collision detection
+ * Objects other than drones

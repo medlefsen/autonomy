@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+perl -e 'print join("",sort { int(rand(1) + 0.5); } (<>));' bldhosts > "$HOME/.bldhosts"
+distmake -j $@

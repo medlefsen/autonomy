@@ -1,0 +1,20 @@
+int $a;
+int $garbage;
+$a := scan(0,0);
+if is_asteroid($a)
+{
+}
+elseif is_drone($a)
+{
+}
+elseif is_base($a)
+{
+    $garbage := is_asteroid($a);
+    $garbage := is_drone($a);
+    $garbage := is_base($a);
+    if ( not get_x() < 0 and not get_y() < 2 )
+    {
+        $garbage := mine(get_x(), get_y());
+    }
+}
+$garbage := move(1,0);

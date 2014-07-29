@@ -1,0 +1,103 @@
+#!/usr/bin/env perl
+
+# vim: set ft=perl :
+
+use Data::Dumper;
+
+our $MAKEFILE = 'Makefile.gen';
+our $ROOT = $ARGV[0];
+$ROOT = '..' unless $ROOT;
+
+my $CXXFLAGS = "$ENV{'CXXFLAGS'} $ENV{'INCLUDES'} \"-I$ROOT\"";
+
+
+my %compile_rules;
+my %link_rules;
+
+for my $file ( split(/\n/, `find "$ROOT" -name '*.cpp' | grep -v ".inc.cpp"`) )
+{
+	my $gccout = `g++ -MM $CXXFLAGS "$file"`;
+	my ($target, @depends) = split(/(?:\\?\s|:)+/, $gccout);
+	$compile_rules{$target} = {'path' => $file, 'depends' => [grep $_ =~ m/\/(autonomy|tests)\//, @depends]};
+}
+
+for my $object_file (keys %compile_rules)
+{
+	if ( getfile($compile_rules{$object_file}->{'path'}) =~ m/int[\s\n]+main[\s\n]*\(/ )
+	{
+		my @link_depends = get_obj_depends($object_file);
+		my $exe = $object_file;
+		$exe =~ s/\.o$//g;
+		$link_rules{$exe} = {'path' => $compile_rules{$object_file}->{'path'}, 'depends' => [@link_depends]};
+	}	
+}
+if (-e $MAKEFILE)
+{
+	rename $MAKEFILE, $MAKEFILE.'.old';
+}	
+open my $makefile, '>',  $MAKEFILE;
+print $makefile "# put 'include $MAKEFILE' at the end of your Makefile to use\n\n";
+print $makefile 'COMPILE = $(CXX) -c $(CXXFLAGS) $(INCLUDES) $<'."\n";
+print $makefile 'LINK = $(CXX) $(CXXFLAGS) $(LDFLAGS) $(LOADLIBES) $(LDLIBS) -o $@ $^'."\n";
+
+print $makefile "BASE = $ROOT\n\n";
+print $makefile "EXECUTABLES = ".join(' ',keys %link_rules)."\n\n";
+print $makefile "OBJECTS = ".join(' ',keys %compile_rules)."\n\n";
+print $makefile 'all: $(EXECUTABLES)'."\n\n";	
+for my $exe (keys %link_rules)
+{
+	my $depend_line = join(' ',  @{$link_rules{$exe}->{'depends'}});
+#	$depend_line =~ s/$ROOT/\$(ROOT)/g;
+	print $makefile "$exe: ".$depend_line."\n\t".'$(LINK)'."\n\n";
+}
+
+for my $object (keys %compile_rules)
+{
+	my $depend_line = join(' ',  @{$compile_rules{$object}->{'depends'}});
+#	$depend_line =~ s/$ROOT/\$(ROOT)/g;
+	print $makefile "$object: ".$depend_line."\n\t".'$(COMPILE)'."\n\n";
+}
+print $makefile "\n";
+print $makefile "clean:\n\t".'rm -rf $(OBJECTS)'."\n";
+print $makefile "distclean:\n\t".'rm -rf $(EXECUTABLES) $(OBJECTS)'."\n\n";
+close $makefile;
+
+sub getfile
+{
+	my ($filename) = @_;
+	open my $file, $filename;
+	my $contents = join('',<$file>);
+	close $file;
+	return $contents;
+}
+sub in_list
+{
+	my ($key,@list) = @_;
+	return scalar(grep($key eq $_, @list));
+}
+
+sub get_obj_depends
+{
+	my ($start_file) = @_;
+	my @proc;
+	my @unproc = ($start_file);
+	while( scalar(@unproc) > 0 )
+	{
+		my $file = shift @unproc;
+		push @proc, $file;
+		for (  @{$compile_rules{$file}->{'depends'}} )
+		{
+			my $d = $_;
+			$d =~ s/.*\/([^\/]+)\.[^\.]*$/$1\.o/;
+			if (!in_list($d,@proc,@unproc))
+			{
+				if (exists($compile_rules{$d}))
+				{
+					push @unproc, $d;
+				}
+			}
+
+		}
+	}
+	return @proc;
+}	

@@ -1,0 +1,4 @@
+while 1
+{
+  move(rand_dir(),rand_dir());
+}

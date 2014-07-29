@@ -1,0 +1,11 @@
+int $x (get_x() + 1);
+int $y ( get_y() );
+int $obj( scan($x, $y) );
+if is_asteroid($obj)
+{
+    $obj := mine($x,$y);
+}
+else
+{
+    $obj := move(1, 0);
+}

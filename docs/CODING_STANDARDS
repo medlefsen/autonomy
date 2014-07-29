@@ -1,0 +1,57 @@
+Symbols:
+    All classes, variables lowercase with underscores.
+
+Constants:
+    All caps with underscores.
+
+Namespaces:
+    The global project namespace is autonomy.
+    Namespaces are to be nested, for example:
+
+    namespace autonomy {
+	 namespace action {
+
+    }}
+
+    Further levels of nesting are permissible, so long as all groups using 
+    the interface thus defined agree to the nesting.
+
+Inclusion Guards:
+    Inclusion guards begin with all namespaces, followed by the full filename, 
+    for example where namespace is autonomy::action, filename is move.hpp :
+
+        #ifndef AUTONOMY_ACTION_MOVE_HPP
+
+Includes:
+    All project-local includes should be relative to the directory containing
+    the autonomy directory.  (This requires adding -I<directory containing autonomy>
+    to your compile line.)  Example:
+        
+            #include <autonomy/action/move.hpp>
+
+    Includes should appear in the following order, with these groups separated
+    by whitespace:
+
+        std library includes
+        boost includes
+        other includes (such as SDL)
+        autonomy includes
+            global includes (top level and autonomy/global)
+            group-external includes
+            group-local includes
+
+File Name Conventions:
+    Use .hpp,.cpp for C++ files, .h,.c for C files.
+
+Using Namespaces:
+    Okay in implementations (obviously not in headers).  Namespace aliases 
+    are to be preferred, except for the std namespace. Namespace aliases should
+    be defined only within the namespace they are to be used in, so as not to
+    infect other namespaces.
+
+Goto/Break/Continue:
+    Use of these statements is forbidden, with the exception of breaks in
+    switch statements.
+
+Loops:
+    Use for loops as for loops, use while loops as while loops.

@@ -1,0 +1,4 @@
+create drone scan-mine-return.adl 3 10 100
+create drone scan-mine-return.adl -10 -10 100
+create asteroid 4 11 100
+create asteroid -12 -12 100
