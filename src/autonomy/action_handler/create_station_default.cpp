@@ -1,11 +1,12 @@
 #include <autonomy/action_handler/create_station_default.hpp>
 #include <autonomy/entity/universe.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::create_station_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(create_station_default);
 
         void create_station_default::execute( entity::universe & entity, size_t which_queue )
         {

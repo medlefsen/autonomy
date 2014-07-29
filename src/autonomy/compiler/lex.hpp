@@ -6,9 +6,12 @@
 #ifndef AUTONOMY_COMPILER_LEX_HPP
 #define AUTONOMY_COMPILER_LEX_HPP
 
-#include <boost/spirit/core.hpp>
-#include <boost/spirit/utility/confix.hpp>
-#include <boost/spirit/tree/parse_tree.hpp>
+//#include <boost/spirit/core.hpp>
+//#include <boost/spirit/utility/confix.hpp>
+//#include <boost/spirit/tree/parse_tree.hpp>
+#include <boost/spirit/include/classic_core.hpp>
+#include <boost/spirit/include/classic_confix.hpp>
+#include <boost/spirit/include/classic_parse_tree.hpp>
 
 #include <autonomy/compiler/lexer_ids.hpp>
 #include <autonomy/compiler/parse_node_attributes.hpp>
@@ -43,32 +46,28 @@ namespace autonomy
                     /* symbols */
                     id_tok
                     =  bsp::token_node_d[
-                        bsp::lexeme_d[
                             bsp::chlit<>('$')
-                            >>  bsp::leaf_node_d[+(bsp::alnum_p |
-                                                   bsp::chlit<>('_'))]]
+                            >>  +(bsp::alnum_p | bsp::chlit<>('_'))
+                            //>>  bsp::leaf_node_d[+(bsp::alnum_p | bsp::chlit<>('_'))]
                       ];
 
                     type_tok
                     = bsp::token_node_d[
-                        bsp::lexeme_d[
                            bsp::alpha_p 
                            >>  *(bsp::alnum_p | bsp::chlit<>('_'))
-                        ]] - reserved;
+                        ] - reserved;
 
                     cmd_tok
                     =  bsp::token_node_d[
-                        bsp::lexeme_d[
                             bsp::alpha_p
                             >> *(bsp::alnum_p | bsp::chlit<>('_'))
-                        ]] - reserved;
+                        ] - reserved;
 
                     /* keywords */
                     if_tok
                     = bsp::token_node_d[
-                        bsp::lexeme_d[
                             bsp::strlit<>("if")
-                        ]];
+                        ];
 
                     elseif_tok
                     = bsp::token_node_d[
@@ -122,44 +121,40 @@ namespace autonomy
                     /* mathematical */
                     addop
                     = bsp::token_node_d[
-                        bsp::lexeme_d[
                             (bsp::chlit<>('+') | bsp::chlit<>('-'))
-                        ]];
+                        ];
 
                     multop
                     = bsp::token_node_d[
-                        bsp::lexeme_d[
                             (bsp::chlit<>('*') | bsp::chlit<>('/'))
-                        ]];
+                        ];
 
                     expop
                     = bsp::token_node_d[
-                        bsp::lexeme_d[
                             bsp::chlit<>('^')
-                        ]];
+                        ];
 
                     /* relational */
                     relop
                     = bsp::token_node_d[
-                        bsp::lexeme_d[
                             ( bsp::chlit<> ('<')
                               | bsp::chlit<> ('=')
                             )
-                        ]];
+                        ];
 
                     /* logical */
                     notop =
-                        bsp::token_node_d[bsp::lexeme_d[bsp::strlit<>
-                                                        ("not")]];
+                        bsp::token_node_d[bsp::strlit<>
+                                                        ("not")];
                     orop  =
-                        bsp::token_node_d[bsp::lexeme_d[bsp::strlit<>
-                                                        ("or")]];
+                        bsp::token_node_d[bsp::strlit<>
+                                                        ("or")];
                     andop =
-                        bsp::token_node_d[bsp::lexeme_d[bsp::strlit<>
-                                                        ("and")]];
+                        bsp::token_node_d[bsp::strlit<>
+                                                        ("and")];
 
                     /* literals */
-                    litc = bsp::token_node_d[bsp::lexeme_d[bsp::uint_p]];
+                    litc = bsp::token_node_d[bsp::uint_p];
                 }
 
                 // reserved words //

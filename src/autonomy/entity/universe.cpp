@@ -3,12 +3,14 @@
 
 #include <autonomy/entity/universe.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::entity_base<autonomy::entity::universe>);
+
+BOOST_CLASS_EXPORT(autonomy::entity::universe);
+
 namespace autonomy
 {
-    BOOST_CLASS_EXPORT(entity_base<entity::universe>);
     namespace entity
     {
-        BOOST_CLASS_EXPORT(universe);
         void universe::controller(size_t which_queue)
         {}
 

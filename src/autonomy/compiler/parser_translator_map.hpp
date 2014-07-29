@@ -9,7 +9,8 @@
 #include <utility>
 
 #include <boost/shared_ptr.hpp>
-#include <boost/spirit/core.hpp>
+//#include <boost/spirit/core.hpp>
+#include <boost/spirit/include/classic_core.hpp>
 #include <boost/integer_traits.hpp>
 
 #include <autonomy/compiler/parser_ids.hpp>

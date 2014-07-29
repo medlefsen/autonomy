@@ -1,11 +1,12 @@
 #include <autonomy/action_handler/scan_default.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::scan_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::scan_response_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(scan_default);
-        BOOST_CLASS_EXPORT(scan_response_default);
 
         void scan_default::execute( entity::universe & entity, 
                                     size_t which_queue )

@@ -7,7 +7,8 @@
 #include <string>
 #include <utility>
 
-#include <boost/spirit/core.hpp>
+//#include <boost/spirit/core.hpp>
+#include <boost/spirit/include/classic_core.hpp>
 #include <boost/shared_ptr.hpp>
 
 #include <autonomy/instruction_list.hpp>

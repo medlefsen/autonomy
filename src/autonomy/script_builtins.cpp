@@ -4,10 +4,65 @@
 
 #include <autonomy/script_builtins.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::less_than>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::less_than)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::logical_and>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::logical_and)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::logical_or>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::logical_or)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::logical_not>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::logical_not)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::literal>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::literal)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::dup>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::dup)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::pop>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::pop)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::add>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::add)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::sub>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::sub)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::multiply>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::multiply)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::divide>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::divide)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::power>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::power)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::cond_jump>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::cond_jump)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::load>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::load)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::store>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::store)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::jump>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::jump)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::rel_jump>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::rel_jump)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::cond_rel_jump>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::cond_rel_jump)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::script_builtins::equals>)
+BOOST_CLASS_EXPORT(autonomy::script_builtins::equals)
+
 namespace autonomy { namespace script_builtins {
 
-BOOST_CLASS_EXPORT(script_instruction_base<dup>)
-BOOST_CLASS_EXPORT(dup)
 unsigned int dup::execute(size_t which_queue, entity::scripted_drone & drone)
 {
     int top = drone.pop_stack();
@@ -16,16 +71,12 @@ unsigned int dup::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<pop>)
-BOOST_CLASS_EXPORT(pop)
 unsigned int pop::execute(size_t which_queue, entity::scripted_drone & drone)
 {
     drone.pop_stack();
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<add>)
-BOOST_CLASS_EXPORT(add)
 unsigned int add::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -34,8 +85,6 @@ unsigned int add::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<sub>)
-BOOST_CLASS_EXPORT(sub)
 unsigned int sub::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -44,8 +93,6 @@ unsigned int sub::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<multiply>)
-BOOST_CLASS_EXPORT(multiply)
 unsigned int multiply::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -55,8 +102,6 @@ unsigned int multiply::execute(size_t which_queue, entity::scripted_drone & dron
 }
 
 //! execute(size_t which_queue, entity::scripted_drone & drone)
-BOOST_CLASS_EXPORT(script_instruction_base<divide>)
-BOOST_CLASS_EXPORT(divide)
 unsigned int divide::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -65,8 +110,6 @@ unsigned int divide::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<power>)
-BOOST_CLASS_EXPORT(power)
 unsigned int power::execute(size_t which_queue, entity::scripted_drone & drone)
 {
     int base      = drone.pop_stack();
@@ -76,8 +119,6 @@ unsigned int power::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<cond_jump>)
-BOOST_CLASS_EXPORT(cond_jump)
 unsigned int cond_jump::execute(size_t which_queue, entity::scripted_drone & drone)
 {
   int line = drone.pop_stack();
@@ -89,8 +130,6 @@ unsigned int cond_jump::execute(size_t which_queue, entity::scripted_drone & dro
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<load>)
-BOOST_CLASS_EXPORT(load)
 unsigned int load::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int id = drone.pop_stack();
@@ -99,8 +138,6 @@ unsigned int load::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<store>)
-BOOST_CLASS_EXPORT(store)
 unsigned int store::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int val = drone.pop_stack();
@@ -109,8 +146,6 @@ unsigned int store::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<jump>)
-BOOST_CLASS_EXPORT(jump)
 unsigned int jump::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int line = drone.pop_stack();
@@ -118,8 +153,6 @@ unsigned int jump::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<rel_jump>)
-BOOST_CLASS_EXPORT(rel_jump)
 unsigned int rel_jump::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int off = drone.pop_stack();
@@ -127,8 +160,6 @@ unsigned int rel_jump::execute(size_t which_queue, entity::scripted_drone & dron
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<cond_rel_jump>)
-BOOST_CLASS_EXPORT(cond_rel_jump)
 unsigned int cond_rel_jump::execute(size_t which_queue, entity::scripted_drone & drone)
 {
     int off = drone.pop_stack();
@@ -140,8 +171,6 @@ unsigned int cond_rel_jump::execute(size_t which_queue, entity::scripted_drone &
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<equals>)
-BOOST_CLASS_EXPORT(equals)
 unsigned int equals::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -153,8 +182,6 @@ unsigned int equals::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<less_than>)
-BOOST_CLASS_EXPORT(less_than)
 unsigned int less_than::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -166,8 +193,6 @@ unsigned int less_than::execute(size_t which_queue, entity::scripted_drone & dro
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<logical_and>)
-BOOST_CLASS_EXPORT(logical_and)
 unsigned int logical_and::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -179,8 +204,6 @@ unsigned int logical_and::execute(size_t which_queue, entity::scripted_drone & d
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<logical_or>)
-BOOST_CLASS_EXPORT(logical_or)
 unsigned int logical_or::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
@@ -192,8 +215,6 @@ unsigned int logical_or::execute(size_t which_queue, entity::scripted_drone & dr
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<logical_not>)
-BOOST_CLASS_EXPORT(logical_not)
 unsigned int logical_not::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	int val = drone.pop_stack();
@@ -204,8 +225,6 @@ unsigned int logical_not::execute(size_t which_queue, entity::scripted_drone & d
     return 0;
 }
 
-BOOST_CLASS_EXPORT(script_instruction_base<literal>)
-BOOST_CLASS_EXPORT(literal)
 unsigned int literal::execute(size_t which_queue, entity::scripted_drone & drone)
 {
 	drone.push_stack(_val);

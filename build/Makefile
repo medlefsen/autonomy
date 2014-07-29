@@ -1,4 +1,4 @@
-CXXFLAGS+= -Wall -DBOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE 
+CXXFLAGS+= -Wall -DBOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE -DBOOST_SPIRIT_USE_OLD_NAMESPACE -fpermissive -ftemplate-depth=1024 -ftemplate-backtrace-limit=0
 ifdef DEBUG
 	CXXFLAGS += -DDEBUG
 	GDB = 1
@@ -20,7 +20,7 @@ ifdef DUI
 endif
 INCLUDES+=-I$(BASE)
 LDFLAGS+=-L/usr/local/acl/lib
-LDLIBS+=-lSDL -lSDL_mixer -lSDL_image -lSDL_gfx -lSDL_ttf -lboost_thread-mt -lboost_serialization
+LDLIBS+=-lSDL -lSDL_mixer -lSDL_image -lSDL_gfx -lSDL_ttf -lboost_thread -lboost_serialization -lboost_system -lpthread
 
 default: autonomy
 

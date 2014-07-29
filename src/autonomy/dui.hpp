@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include <boost/optional.hpp>
+#include <boost/thread.hpp>
 
 #include <autonomy/game.hpp>
 

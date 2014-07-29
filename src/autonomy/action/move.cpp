@@ -1,10 +1,12 @@
 #include <autonomy/action/move.hpp>
+
+BOOST_CLASS_EXPORT(autonomy::action::move_direction);
+BOOST_CLASS_EXPORT(autonomy::action::move_direction_response);
+
 namespace autonomy
 {
     namespace action
     {
-        BOOST_CLASS_EXPORT(move_direction);
-        BOOST_CLASS_EXPORT(move_direction_response);
 
         action_handler_generic * move_direction::default_handler()
         {

@@ -2,13 +2,14 @@
 
 #include <algorithm>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::mine_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::mine_location_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::mine_response_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(mine_default);
-        BOOST_CLASS_EXPORT(mine_location_default);
-        BOOST_CLASS_EXPORT(mine_response_default);
 
         void mine_default::execute( entity::asteroid & entity, 
                                     size_t which_queue )

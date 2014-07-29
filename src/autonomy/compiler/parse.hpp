@@ -9,9 +9,12 @@
 #ifndef AUTONOMY_COMPILER_PARSE_PARSE_HPP
 #define AUTONOMY_COMPILER_PARSE_PARSE_HPP
 
-#include <boost/spirit/core.hpp>
-#include <boost/spirit/tree/ast.hpp>
-#include <boost/spirit/tree/parse_tree.hpp>
+//#include <boost/spirit/core.hpp>
+//#include <boost/spirit/tree/ast.hpp>
+//#include <boost/spirit/tree/parse_tree.hpp>
+#include <boost/spirit/include/classic_core.hpp>
+#include <boost/spirit/include/classic_ast.hpp>
+#include <boost/spirit/include/classic_parse_tree.hpp>
 
 #include <autonomy/compiler/lex.hpp>
 #include <autonomy/compiler/parser_ids.hpp>

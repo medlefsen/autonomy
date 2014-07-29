@@ -2,13 +2,14 @@
 
 #include <algorithm>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::unload_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::unload_fuel_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::unload_response_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(unload_default);
-        BOOST_CLASS_EXPORT(unload_fuel_default);
-        BOOST_CLASS_EXPORT(unload_response_default);
 
         void unload_default::execute( entity::base_station & entity, 
                                     size_t which_queue )

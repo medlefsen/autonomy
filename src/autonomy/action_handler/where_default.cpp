@@ -1,11 +1,12 @@
 #include <autonomy/action_handler/where_default.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::where_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::where_response_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(where_default);
-        BOOST_CLASS_EXPORT(where_response_default);
 
         void where_default::execute( entity::universe & entity, 
                                      size_t which_queue )

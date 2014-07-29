@@ -3,7 +3,8 @@
 
 #include <string>
 
-#include <boost/spirit/tree/parse_tree.hpp>
+//#include <boost/spirit/tree/parse_tree.hpp>
+#include <boost/spirit/include/classic_parse_tree.hpp>
 
 #include <autonomy/compiler/constants.hpp>
 #include <autonomy/compiler/type.hpp>

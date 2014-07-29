@@ -7,12 +7,14 @@
 #include <autonomy/action/mine.hpp>
 #include <autonomy/action/destroy_entity.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::entity_base<autonomy::entity::asteroid>);
+
+BOOST_CLASS_EXPORT(autonomy::entity::asteroid);
+
 namespace autonomy 
 { 
-    BOOST_CLASS_EXPORT(entity_base<entity::asteroid>);
     namespace entity 
     {
-        BOOST_CLASS_EXPORT(asteroid);
         void asteroid::controller(size_t which_queue)
         {
             if ( get_fuel() == 0 )

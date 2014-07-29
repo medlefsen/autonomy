@@ -26,7 +26,7 @@ int main() {
    game                     mygame;
    util::coord_pair         drone_loc(1,1);
    location_module< game >& loc = mygame.location_module();
-   entity_id_t myuni(static_cast<entity_base*>(new entity::universe(mygame)));
+   entity_id_t myuni(static_cast<entity_generic*>(new entity::universe(mygame)));
 
    script_object_id_t my_script;
    script_library< game > my_library;
@@ -45,7 +45,7 @@ int main() {
    myuni->send_action(q, (new action::create_drone(100, drone_loc, compiled_script, myuni)));
 
    cout << "Starting the processor in a separate thread." << endl;
-   proc_thread = boost::thread(boost::bind(&processor<game>::start,boost::ref(mygame.processor())));
+   proc_thread = boost::thread(boost::bind(&processor::start,boost::ref(mygame.processor())));
 
    sleep(1);
    if (loc.query(drone_loc) != entity_id_t()) cout << "Found drone.\n";

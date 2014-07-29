@@ -8,14 +8,43 @@
 #include <autonomy/action/destroy_entity.hpp>
 #include <ctime>
 
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::move>)
+BOOST_CLASS_EXPORT(autonomy::move)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::get_x>)
+BOOST_CLASS_EXPORT(autonomy::get_x)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::get_y>)
+BOOST_CLASS_EXPORT(autonomy::get_y)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::scan>)
+BOOST_CLASS_EXPORT(autonomy::scan)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::is_drone>)
+BOOST_CLASS_EXPORT(autonomy::is_drone)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::is_asteroid>)
+BOOST_CLASS_EXPORT(autonomy::is_asteroid)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::is_base>)
+BOOST_CLASS_EXPORT(autonomy::is_base)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::rand_dir>)
+BOOST_CLASS_EXPORT(autonomy::rand_dir)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::mine>)
+BOOST_CLASS_EXPORT(autonomy::mine)
+
+BOOST_CLASS_EXPORT(autonomy::script_instruction_base<autonomy::unload>)
+BOOST_CLASS_EXPORT(autonomy::unload)
+
+
 namespace autonomy {
     const int SCAN_FUEL_COST = 1;
     const int MOVE_FUEL_COST = 2;
     const int MINE_FUEL_AMOUNT = 5;
     const int UNLOAD_FUEL_AMOUNT = 5;
 
-    BOOST_CLASS_EXPORT(script_instruction_base<move>)
-        BOOST_CLASS_EXPORT(move)
         unsigned int move::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             // note the implication here that even attempting to move
@@ -42,8 +71,6 @@ namespace autonomy {
             }
         }
 
-    BOOST_CLASS_EXPORT(script_instruction_base<get_x>)
-        BOOST_CLASS_EXPORT(get_x)
         unsigned int get_x::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             drone.universe()->send_action(which_queue,
@@ -52,8 +79,6 @@ namespace autonomy {
             return 1;
         }
 
-    BOOST_CLASS_EXPORT(script_instruction_base<get_y>)
-        BOOST_CLASS_EXPORT(get_y)
         unsigned int get_y::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             drone.universe()->send_action(which_queue,
@@ -62,8 +87,6 @@ namespace autonomy {
             return 1;
         }
 
-        BOOST_CLASS_EXPORT(script_instruction_base<scan>)
-        BOOST_CLASS_EXPORT(scan)
         unsigned int scan::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             if(SCAN_FUEL_COST < drone.get_fuel())
@@ -85,8 +108,6 @@ namespace autonomy {
             }
         }
 
-    BOOST_CLASS_EXPORT(script_instruction_base<is_drone>)
-        BOOST_CLASS_EXPORT(is_drone)
         unsigned int is_drone::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             int entity_type(drone.pop_stack());
@@ -97,8 +118,6 @@ namespace autonomy {
             return 0;
         }
 
-    BOOST_CLASS_EXPORT(script_instruction_base<is_asteroid>)
-        BOOST_CLASS_EXPORT(is_asteroid)
         unsigned int is_asteroid::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             int entity_type(drone.pop_stack());
@@ -109,8 +128,6 @@ namespace autonomy {
             return 0;
         }
 
-    BOOST_CLASS_EXPORT(script_instruction_base<is_base>)
-        BOOST_CLASS_EXPORT(is_base)
         unsigned int is_base::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             int entity_type(drone.pop_stack());
@@ -125,16 +142,12 @@ namespace autonomy {
     boost::uniform_int<> rand_dir::dir(-1,1);
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rand_dir::_rand_dir(rng,dir);
 
-    BOOST_CLASS_EXPORT(script_instruction_base<rand_dir>)
-        BOOST_CLASS_EXPORT(rand_dir)
         unsigned int rand_dir::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             drone.push_stack(_rand_dir());
             return 0;
         }
 
-    BOOST_CLASS_EXPORT(script_instruction_base<mine>)
-        BOOST_CLASS_EXPORT(mine)
         unsigned int mine::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             int y(drone.pop_stack());
@@ -147,8 +160,6 @@ namespace autonomy {
             return 2;
         }
         
-    BOOST_CLASS_EXPORT(script_instruction_base<unload>)
-        BOOST_CLASS_EXPORT(unload)
         unsigned int unload::execute(size_t which_queue, entity::scripted_drone & drone)
         {
             if ( UNLOAD_FUEL_AMOUNT < drone.get_fuel() )

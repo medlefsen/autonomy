@@ -8,8 +8,10 @@
 
 #include <string>
 
-#include <boost/spirit/iterator/position_iterator.hpp>
-#include <boost/spirit/tree/parse_tree.hpp>
+//#include <boost/spirit/iterator/position_iterator.hpp>
+//#include <boost/spirit/tree/parse_tree.hpp>
+#include <boost/spirit/include/classic_position_iterator.hpp>
+#include <boost/spirit/include/classic_parse_tree.hpp>
 
 namespace autonomy
 {

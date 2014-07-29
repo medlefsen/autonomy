@@ -1,14 +1,16 @@
 #include <autonomy/action/destroy_entity.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::hide_entity_handler_base_t);
+BOOST_CLASS_EXPORT(autonomy::destroy_entity_handler_base_t);
+
+BOOST_CLASS_EXPORT(autonomy::action::hide_entity);
+BOOST_CLASS_EXPORT(autonomy::action::destroy_entity);
+
 namespace autonomy
 {
-    BOOST_CLASS_EXPORT(hide_entity_handler_base_t);
-    BOOST_CLASS_EXPORT(destroy_entity_handler_base_t);
 
     namespace action
     {
-        BOOST_CLASS_EXPORT(hide_entity);
-        BOOST_CLASS_EXPORT(destroy_entity);
 
         action_handler_generic * hide_entity::default_handler()
         {

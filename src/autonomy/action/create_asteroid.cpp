@@ -1,13 +1,16 @@
 #include <autonomy/action/create_asteroid.hpp>
+
+BOOST_CLASS_EXPORT(autonomy::create_asteroid_handler_base_t);
+BOOST_CLASS_EXPORT(autonomy::create_asteroid_response_handler_base_t);
+
+BOOST_CLASS_EXPORT(autonomy::action::create_asteroid);
+BOOST_CLASS_EXPORT(autonomy::action::create_asteroid_response);
+
 namespace autonomy
 {
-    BOOST_CLASS_EXPORT(create_asteroid_handler_base_t);
-    BOOST_CLASS_EXPORT(create_asteroid_response_handler_base_t);
 
     namespace action
     {
-        BOOST_CLASS_EXPORT(create_asteroid);
-        BOOST_CLASS_EXPORT(create_asteroid_response);
 
         action_handler_generic * create_asteroid::default_handler()
         {

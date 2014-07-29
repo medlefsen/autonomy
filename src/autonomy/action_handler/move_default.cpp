@@ -1,12 +1,13 @@
 #include <autonomy/action_handler/move_default.hpp>
 #include <autonomy/entity/scripted_drone.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::move_direction_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::move_direction_response_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(move_direction_default);
-        BOOST_CLASS_EXPORT(move_direction_response_default);
 
         void move_direction_default::execute( entity::universe & entity, 
                                               size_t which_queue )

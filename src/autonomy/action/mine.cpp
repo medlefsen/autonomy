@@ -1,16 +1,18 @@
 #include <autonomy/action/mine.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::mine_handler_base_t);
+BOOST_CLASS_EXPORT(autonomy::mine_location_handler_base_t);
+BOOST_CLASS_EXPORT(autonomy::mine_response_handler_base_t);
+
+BOOST_CLASS_EXPORT(autonomy::action::mine);
+BOOST_CLASS_EXPORT(autonomy::action::mine_location);
+BOOST_CLASS_EXPORT(autonomy::action::mine_response);
+
 namespace autonomy
 {
-    BOOST_CLASS_EXPORT(mine_handler_base_t);
-    BOOST_CLASS_EXPORT(mine_location_handler_base_t);
-    BOOST_CLASS_EXPORT(mine_response_handler_base_t);
 
     namespace action
     {
-        BOOST_CLASS_EXPORT(mine);
-        BOOST_CLASS_EXPORT(mine_location);
-        BOOST_CLASS_EXPORT(mine_response);
 
         action_handler_generic * mine::default_handler()
         {

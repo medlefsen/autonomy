@@ -5,12 +5,13 @@
 
 #include <autonomy/action_handler/create_drone_default.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::create_drone_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::create_drone_response_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(create_drone_default);
-        BOOST_CLASS_EXPORT(create_drone_response_default);
 
         void create_drone_default::execute( entity::universe & entity, size_t which_queue )
         {

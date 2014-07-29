@@ -1,11 +1,12 @@
 #include <autonomy/action_handler/destroy_entity_default.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::action_handler::hide_entity_default);
+BOOST_CLASS_EXPORT(autonomy::action_handler::destroy_entity_default);
+
 namespace autonomy
 {
     namespace action_handler
     {
-        BOOST_CLASS_EXPORT(hide_entity_default);
-        BOOST_CLASS_EXPORT(destroy_entity_default);
 
         void hide_entity_default::execute( entity::universe & entity, 
                                            size_t which_queue )

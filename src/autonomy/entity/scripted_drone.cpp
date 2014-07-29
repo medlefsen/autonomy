@@ -13,12 +13,12 @@
 #include <autonomy/entity/asteroid.hpp>
 #include <autonomy/entity/base_station.hpp>
 
+BOOST_CLASS_EXPORT(autonomy::entity_base<autonomy::entity::scripted_drone>);
+BOOST_CLASS_EXPORT(autonomy::entity::scripted_drone);
 namespace autonomy
 {
-    BOOST_CLASS_EXPORT(entity_base<entity::scripted_drone>);
     namespace entity
     {
-        BOOST_CLASS_EXPORT(scripted_drone);
 
         void scripted_drone::controller(size_t which_queue)
         {
