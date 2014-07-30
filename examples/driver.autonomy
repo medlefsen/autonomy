@@ -13,12 +13,12 @@ create drone scan-mine-return.adl 12 12 400
 create drone scan-mine-return.adl 12 -12 400
 create drone scan-mine-return.adl -12 12 400
 create drone scan-mine-return.adl -12 -12 400
-create asteroid 3 3 400
-create asteroid -3 3 400
-create asteroid 3 -3 400
-create asteroid -3 -3 400
-create asteroid 13 13 400
-create asteroid -13 13 400
-create asteroid 13 -13 400
-create asteroid -13 -13 400
+create asteroid 3 3 40
+create asteroid -3 3 40
+create asteroid 3 -3 40
+create asteroid -3 -3 40
+create asteroid 13 13 40
+create asteroid -13 13 40
+create asteroid 13 -13 40
+create asteroid -13 -13 40
 start
