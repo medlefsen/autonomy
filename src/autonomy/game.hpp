@@ -12,10 +12,8 @@
 #include <autonomy/location_module.hpp>
 #include <autonomy/script_library.hpp>
 #include <autonomy/dui.hpp>
-
-#ifndef DUI
-#include <autonomy/gui.hpp>
-#endif
+#include <autonomy/generic_ui.hpp>
+#include <vector>
 
 namespace autonomy
 {
@@ -24,9 +22,6 @@ namespace autonomy
           public location_module< game >,
           public script_library< game >,
           public dui< game >
-#ifndef DUI
-          , public gui < game >
-#endif
 
     {
         friend class boost::serialization::access;
@@ -74,16 +69,9 @@ namespace autonomy
             {
                 return *static_cast<const autonomy::dui<game>*>(this);
             }
-#ifndef DUI
-            autonomy::gui<game> & gui()
-            {
-                return *static_cast<autonomy::gui<game>*>(this);
-            }
-            const autonomy::gui<game> & gui() const
-            {
-                return *static_cast<const autonomy::gui<game>*>(this);
-            }
-#endif
+
+            void update_ui();
+
             // Tentative functions for pause/resume
             void pause()
             {
@@ -111,6 +99,8 @@ namespace autonomy
         private:
             entity_id_t _uni;
             std::string _file;
+            std::vector<generic_ui<game>> _uis;
+
 
             template< class Archive >
             void serialize(Archive & ar, const unsigned int version)

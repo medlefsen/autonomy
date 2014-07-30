@@ -11,7 +11,7 @@ namespace autonomy
         void base_station::controller(size_t which_queue)
         {
 #ifndef DUI
-            _which_game->gui().do_update();
+            _which_game->update_ui();
 #endif
         }
 

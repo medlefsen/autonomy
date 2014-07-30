@@ -49,6 +49,8 @@ namespace autonomy
     //! Gui Destructor
     //! Sets done to true and then joins gui_thread
     ~gui();
+
+    void init(parent_type& parent);
     
     //! run()
     //! This is the main loop of the gui
@@ -59,12 +61,12 @@ namespace autonomy
 
     parent_type& parent()
     {
-      return *static_cast<parent_type*>(this);
+      return *parent_;
     }
 
     const parent_type& parent() const
     {
-      return *static_cast<const parent_type*>(this);
+      return *parent_;
     }
 
   private:
@@ -111,6 +113,7 @@ namespace autonomy
     int SCREEN_BPP;
     int HUD_SIZE;
     int TICK_DELAY; 
+    parent_type* parent_;
 
     template < class Archive >
         void serialize( Archive & ar, const unsigned int version )

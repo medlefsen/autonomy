@@ -16,7 +16,7 @@ namespace autonomy
     : done(false), _do_update(true),  gui_state(GAME), title_screen(NULL), 
       dont_do_drugs(NULL), screen(NULL), text_buffer(NULL), FONT(NULL), 
       debug(false), paused(false), gridded(false), SCREEN_BPP(32), 
-      HUD_SIZE(150), TICK_DELAY(100)
+      HUD_SIZE(150), TICK_DELAY(100), parent_(nullptr)
   {
     viewport.set_resolution(800, 600);
     viewport.x(-(static_cast<int>(viewport.x_res()/2)));
@@ -25,9 +25,14 @@ namespace autonomy
     update_event.user.code = 0;
     update_event.user.data1 = NULL;
     update_event.user.data2 = NULL;
-     
-    gui_thread = boost::thread(boost::bind(&gui<P>::run,boost::ref(*this)));
   }
+
+  template<typename P>
+    void gui<P>::init(P& parent)
+    {
+      parent_ = &parent;
+      gui_thread = boost::thread(boost::bind(&gui<P>::run,boost::ref(*this)));
+    }
 
   template <typename P>
   gui<P>::~gui()
