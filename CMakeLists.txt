@@ -38,6 +38,7 @@ add_executable(autonomy
   ./src/autonomy/entity/scripted_drone.cpp
   ./src/autonomy/entity/universe.cpp
   ./src/autonomy/game.cpp
+  ./src/autonomy/location_module.cpp
   ./src/autonomy/processor.cpp
   ./src/autonomy/script_builtins.cpp
   ./src/autonomy/script_commands.cpp

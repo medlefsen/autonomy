@@ -23,7 +23,6 @@ namespace autonomy
     //! \class location_module
     //! \brief The location_module tracks the locations of every object
     //!        associated with a universe entity.
-    template < typename ParentT >
         class location_module
         {
             friend class boost::serialization::access;
@@ -47,15 +46,6 @@ namespace autonomy
                 }
 
             public:
-            ParentT & parent()
-            {
-                return *static_cast< ParentT* >(this);
-            }
-
-            const ParentT & parent() const
-            {
-                return *static_cast< ParentT* >(this);
-            }
 
             location_module()
             {}
@@ -109,15 +99,10 @@ namespace autonomy
                 bool operator()(relation_t relation) const;
 
                 private:
-                ParentT & parent()
-                {
-                    return *static_cast< ParentT* >(this);
-                }
 
                 entity_id_t _entity_equal;
                 util::coord_pair _location_equal;
             };
         };
 }
-#include <autonomy/location_module.inc.cpp>
 #endif

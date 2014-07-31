@@ -11,7 +11,7 @@ namespace autonomy
         void where_default::execute( entity::universe & entity, 
                                      size_t which_queue )
         {
-            location_module<game> & loc(entity.location_module());
+            location_module & loc(entity.location_module());
             BOOST_FOREACH(action::where * wa, _action_group)
             {
                 util::coord_pair where(loc.locate(entity_id_t(wa->subject())));

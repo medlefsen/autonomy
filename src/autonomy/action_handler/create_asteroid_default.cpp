@@ -16,7 +16,7 @@ namespace autonomy
         void create_asteroid_default::execute( entity::universe & entity, 
                                                size_t which_queue )
         {
-            location_module<game> & loc  (entity.location_module());
+            location_module & loc  (entity.location_module());
             processor             & proc (entity.processor());
 
             BOOST_FOREACH(action::create_asteroid * ca, _action_group)

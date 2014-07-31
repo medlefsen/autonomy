@@ -239,7 +239,7 @@ namespace autonomy
     game_field.w = viewport.x_res();
     game_field.h = viewport.y_res() - HUD_SIZE;
     SDL_FillRect(screen, &game_field, 0);
-    BOOST_FOREACH( typename location_module<P>::relation_t entity_data, 
+    BOOST_FOREACH( typename location_module::relation_t entity_data, 
                    *_entities)
       {
         if(typeid(*(entity_data.first)) == typeid(entity::scripted_drone))

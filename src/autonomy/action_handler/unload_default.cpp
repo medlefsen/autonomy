@@ -26,7 +26,7 @@ namespace autonomy
         void unload_fuel_default::execute( entity::universe & entity, 
                                              size_t which_queue )
         {
-            location_module<game> & loc(entity.location_module());
+            location_module & loc(entity.location_module());
 
             BOOST_FOREACH(action::unload_fuel * unload_loc, _action_group)
             {

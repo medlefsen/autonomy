@@ -11,7 +11,7 @@ namespace autonomy
         void hide_entity_default::execute( entity::universe & entity, 
                                            size_t which_queue )
         {
-            location_module<game> & loc (entity.location_module());
+            location_module & loc (entity.location_module());
             BOOST_FOREACH(action::hide_entity * he, _action_group)
             {
                 loc.remove(he->entity());

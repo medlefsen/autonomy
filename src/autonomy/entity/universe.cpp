@@ -14,7 +14,7 @@ namespace autonomy
         void universe::controller(size_t which_queue)
         {}
 
-        location_module<game> & universe::location_module() const
+        location_module & universe::location_module() const
         {
             return ((*_which_game).location_module());
         }

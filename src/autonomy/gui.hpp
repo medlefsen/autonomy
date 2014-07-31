@@ -94,7 +94,7 @@ namespace autonomy
     //TODO Add local variables like list of location,entity type pairs to display
 
     entity_id_t selected_object;
-    typename location_module<parent_type>::view_ptr_t _entities;
+    typename location_module::view_ptr_t _entities;
     boost::thread gui_thread;
 
     SDL_Event update_event;

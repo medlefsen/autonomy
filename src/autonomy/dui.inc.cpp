@@ -263,9 +263,9 @@ namespace autonomy {
          entity_loc.x() = x;
          entity_loc.y() = y;
   	 
-	      if((typeid(parent().query(entity_loc)) == typeid(entity::asteroid))
-	         ||(typeid(parent().query(entity_loc)) == typeid(entity::drone))
-	         ||(typeid(parent().query(entity_loc)) == typeid(entity::base_station)))
+	      if((typeid(_loc.query(entity_loc)) == typeid(entity::asteroid))
+	         ||(typeid(_loc.query(entity_loc)) == typeid(entity::drone))
+	         ||(typeid(_loc.query(entity_loc)) == typeid(entity::base_station)))
          {
 	         std::cerr << "An entity already exists at " << entity_loc << std::endl;
          }
@@ -379,8 +379,8 @@ namespace autonomy {
    {
       util::coord_pair sw(MAP_MIN,MAP_MIN);
       util::coord_pair ne(MAP_MAX,MAP_MAX);
-      typename location_module< P > ::view_ptr_t  current_view = _loc.view(sw,ne);
-      typename std::vector< typename location_module<P>::relation_t >::iterator view_iterator = current_view->begin();
+      typename location_module ::view_ptr_t  current_view = _loc.view(sw,ne);
+      typename std::vector< typename location_module::relation_t >::iterator view_iterator = current_view->begin();
       entity_id_t current_entity;
    
       if (_proc.is_going())

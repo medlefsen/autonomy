@@ -15,7 +15,7 @@ namespace autonomy
 
         void create_drone_default::execute( entity::universe & entity, size_t which_queue )
         {
-            location_module<game> & loc (entity.location_module());
+            location_module & loc (entity.location_module());
             processor             & proc(entity.processor());
 
             BOOST_FOREACH(action::create_drone * cd, _action_group)

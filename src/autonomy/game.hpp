@@ -19,7 +19,6 @@ namespace autonomy
 {
     class game
         : public processor,
-          public location_module< game >,
           public script_library< game >,
           public dui< game >
 
@@ -37,13 +36,13 @@ namespace autonomy
             {
                 return *static_cast<const autonomy::processor*>(this);
             }
-            autonomy::location_module<game> & location_module()
+            autonomy::location_module & location_module()
             {
-                return *static_cast<autonomy::location_module<game>*>(this);
+                return location_module_;
             }
-            const autonomy::location_module<game> & location_module() const
+            const autonomy::location_module & location_module() const
             {
-                return *static_cast<const autonomy::location_module<game>*>(this);
+                return location_module_;
             }
             autonomy::script_library<game> & script_library() 
             {
@@ -97,6 +96,7 @@ namespace autonomy
                return _file;
             }
         private:
+            autonomy::location_module location_module_;
             entity_id_t _uni;
             std::string _file;
             std::vector<generic_ui<game>> _uis;
@@ -106,7 +106,7 @@ namespace autonomy
             void serialize(Archive & ar, const unsigned int version)
             {
                 ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(autonomy::processor);
-                ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(autonomy::location_module< game >);
+                ar & BOOST_SERIALIZATION_NVP(location_module_);
                 ar & BOOST_SERIALIZATION_NVP(_uni);
                 ar & BOOST_SERIALIZATION_NVP(_file);
                 ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(autonomy::script_library< game >);

@@ -12,7 +12,7 @@ namespace autonomy
         void move_direction_default::execute( entity::universe & entity, 
                                               size_t which_queue )
         {
-            location_module<game> & loc(entity.location_module());
+            location_module & loc(entity.location_module());
             BOOST_FOREACH(action::move_direction * md, _action_group)
             {
 #ifdef DEBUG

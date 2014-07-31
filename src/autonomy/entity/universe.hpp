@@ -26,7 +26,7 @@ namespace autonomy { namespace entity
       virtual ~universe()
       {}
 
-      location_module<game> & location_module() const;
+      location_module & location_module() const;
 
       autonomy::processor & processor() const;
 

@@ -4,10 +4,12 @@
 //! Primary Author:  Dylan Leeman
 //! Contributing Author:  Matt Edlefsen
 
+#include <autonomy/location_module.hpp>
+
 namespace autonomy
 {
-    template< typename parent_type>
-        entity_id_t location_module<parent_type>::query( util::coord_pair location ) const
+    
+        entity_id_t location_module::query( util::coord_pair location ) const
         {
             entity_id_t located;
 
@@ -29,8 +31,8 @@ namespace autonomy
     //! Maps the given entity to the given location, this operation
     //! will fail if an entity is already mapped to the location,
     //! returns whether the operation was successful
-    template< typename parent_type>
-        bool location_module<parent_type>::move( entity_id_t entity, util::coord_pair destination )
+    
+        bool location_module::move( entity_id_t entity, util::coord_pair destination )
         {
             // assume move will succeed, slightly better performance
             bool move_succeeded(true);
@@ -71,8 +73,8 @@ namespace autonomy
         }
 
     //! Removes a relation given an entity_id
-    template< typename parent_type>
-        void location_module<parent_type>::remove( entity_id_t entity )
+    
+        void location_module::remove( entity_id_t entity )
         {
             _location_map_mutex.lock_upgrade();
 
@@ -95,8 +97,8 @@ namespace autonomy
     //! Returns the coordinates of an entity, given an entity_id,
     //! if the entity has no corresponding relation, a
     //! util::INVALID_LOCATION will be returned
-    template< typename parent_type>
-        util::coord_pair location_module<parent_type>::locate( entity_id_t entity ) const
+    
+        util::coord_pair location_module::locate( entity_id_t entity ) const
         { 
             util::coord_pair entity_at(util::INVALID_LOCATION);
             
@@ -120,8 +122,8 @@ namespace autonomy
     //! Given a pair of coordinates corresponding to the "south-west"
     //! and "north-east" corners of a viewport, returns a view_t container
     //! with all of the relations in the viewport
-    template< typename parent_type>
-        typename location_module<parent_type>::view_ptr_t location_module<parent_type>::view( util::coord_pair sw, util::coord_pair ne ) const
+    
+        typename location_module::view_ptr_t location_module::view( util::coord_pair sw, util::coord_pair ne ) const
         {
             view_ptr_t results(new view_t);
 
@@ -144,8 +146,8 @@ namespace autonomy
             return results;
         }
 
-    template< typename parent_type>
-        bool location_module<parent_type>::location_relation_pred::operator()(relation_t relation) const
+    
+        bool location_module::location_relation_pred::operator()(relation_t relation) const
         {
             return ( ( _entity_equal == entity_id_t() && relation.second ==
                         _location_equal )
@@ -154,8 +156,8 @@ namespace autonomy
                     || ( relation.first == _entity_equal
                         && relation.second == _location_equal ) );
         }
-    template< typename parent_type>
-        void location_module<parent_type>::clear()
+    
+        void location_module::clear()
         {
             _location_map_mutex.lock();
             _location_map.clear();
