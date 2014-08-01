@@ -8,6 +8,7 @@
 #include <autonomy/action_handler.hpp>
 #include <autonomy/entity/universe.hpp>
 #include <autonomy/entity/drone.hpp>
+#include <autonomy/entity/asteroid.hpp>
 
 namespace autonomy
 {

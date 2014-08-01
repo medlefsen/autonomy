@@ -38,32 +38,25 @@ namespace autonomy {
    const int MAP_MIN      = INT_MIN;
    const int MAP_MAX      = INT_MAX;
 
-   template <typename P>
-   dui<P>::dui()
+
+   dui::dui()
        : _interactive(true),
          _started(false),
-         _has_quit(false),
-         _loc(parent().location_module()),
-         _library(parent().script_library()),
-         _proc(parent().processor())
+         _has_quit(false)
    {
-      _dui_thread = boost::thread(boost::bind(&dui<P>::run,boost::ref(*this),boost::ref(std::cin)));
+      _dui_thread = boost::thread(boost::bind(&dui::run,boost::ref(*this),boost::ref(std::cin)));
    }
 
-   template <typename P>
-   dui<P>::dui(std::string filename)
+
+   dui::dui(std::string filename)
        : _interactive(false),
          _started(false),
-         _has_quit(false),
-         _loc(parent().location_module()),
-         _library(parent().script_library()),
-         _proc(parent().processor())
+         _has_quit(false)
    {
-      _dui_thread = boost::thread(boost::bind(&dui<P>::run_file,boost::ref(*this),filename));
+      _dui_thread = boost::thread(boost::bind(&dui::run_file,boost::ref(*this),filename));
    }
-  template <typename P>
-      inline
-   dui<P>::~dui()
+
+   dui::~dui()
    {
        if(!has_quit())
        {
@@ -72,24 +65,24 @@ namespace autonomy {
        _dui_thread.join();
    }
 
-   template <typename P>
-   void dui<P>::run(std::istream & is)
+
+   void dui::run(std::istream & is)
    {
       cmd_map_t   cmd_map;
       std::string cmd;
-      cmd_map["help"]    = &::autonomy::dui<P>::help;
-      cmd_map["start"]   = &::autonomy::dui<P>::start_game;
-      cmd_map["execute"] = &::autonomy::dui<P>::run_for;
-      cmd_map["sleep"]   = &::autonomy::dui<P>::sleep_for;
-      cmd_map["create"]  = &::autonomy::dui<P>::create_entity;
-      cmd_map["save"]    = &::autonomy::dui<P>::save_game;
-      cmd_map["load"]    = &::autonomy::dui<P>::load_game;
-      cmd_map["status"]  = &::autonomy::dui<P>::status;
-      cmd_map["pause"]   = &::autonomy::dui<P>::pause_game;
-      cmd_map["resume"]  = &::autonomy::dui<P>::resume_game;
-      cmd_map["stop"]    = &::autonomy::dui<P>::stop_game;
-      cmd_map["quit"]    = &::autonomy::dui<P>::end_game;
-      cmd_map["exit"]    = &::autonomy::dui<P>::end_game;
+      cmd_map["help"]    = &::autonomy::dui::help;
+      cmd_map["start"]   = &::autonomy::dui::start_game;
+      cmd_map["execute"] = &::autonomy::dui::run_for;
+      cmd_map["sleep"]   = &::autonomy::dui::sleep_for;
+      cmd_map["create"]  = &::autonomy::dui::create_entity;
+      cmd_map["save"]    = &::autonomy::dui::save_game;
+      cmd_map["load"]    = &::autonomy::dui::load_game;
+      cmd_map["status"]  = &::autonomy::dui::status;
+      cmd_map["pause"]   = &::autonomy::dui::pause_game;
+      cmd_map["resume"]  = &::autonomy::dui::resume_game;
+      cmd_map["stop"]    = &::autonomy::dui::stop_game;
+      cmd_map["quit"]    = &::autonomy::dui::end_game;
+      cmd_map["exit"]    = &::autonomy::dui::end_game;
 
       if (_interactive)
       {
@@ -125,8 +118,8 @@ namespace autonomy {
 #endif
    }
 
-   template <typename P>
-   void dui<P>::run_file(std::string filename)
+
+   void dui::run_file(std::string filename)
    {
       std::ifstream file(filename.c_str());
       if (!file.good())
@@ -137,8 +130,8 @@ namespace autonomy {
       run(file);
    }
    
-   template <typename P>
-   void dui<P>::help(std::istream & is)
+
+   void dui::help(std::istream & is)
    {
       std::cerr << "A list of helpful commands:" << std::endl
                 << "\thelp:     Displays this list of commands again." << std::endl
@@ -155,10 +148,10 @@ namespace autonomy {
                 << "\tquit:    Ends the game and quits the console." << std::endl;
    }
 
-   template <typename P>
-   void dui<P>::start_game(std::istream & is)
+
+   void dui::start_game(std::istream & is)
    {
-      if (!_proc.is_going() && !_started)
+      if (!get_game().processor().is_going() && !_started)
       {
          std::cerr << "Starting the game..." << std::endl;
 
@@ -172,12 +165,12 @@ namespace autonomy {
          started_mutex.unlock();
 
 #ifdef DEBUG
-         std::cerr << "start_game(): _proc.start()" << std::endl;
+         std::cerr << "start_game(): processor.start()" << std::endl;
 #endif
 
-         _proc_thread = boost::thread(boost::bind(&processor::start, boost::ref(_proc) ));
+         _proc_thread = boost::thread(boost::bind(&processor::start, boost::ref(get_game().processor()) ));
       }
-      else if(_proc.is_going())
+      else if(get_game().processor().is_going())
       {
          std::cerr << "A game is already running!" << std::endl;
       }
@@ -192,8 +185,8 @@ namespace autonomy {
       }
    }
    
-   template <typename P>
-   void dui<P>::run_for(std::istream & is)
+
+   void dui::run_for(std::istream & is)
    {
      unsigned int ticks;
      
@@ -201,17 +194,17 @@ namespace autonomy {
         std::cerr << "Number of ticks?: ";
      ticks = safe_int_input(is);
    
-     if (!_proc.is_going()) 
+     if (!get_game().processor().is_going()) 
      {
         std::cerr << "Executing:  " << ticks << " ticks." << std::endl;
 
         create_base();
 
-        // By doing start here as _proc.start instead of a thread
+        // By doing start here as processor.start instead of a thread
         // means that control will only return to the DUI once 
         // the ticks have completed.
         //_proc_thread = boost::thread(boost::bind(&processor::start, boost::ref(_proc),ticks));
-        _proc.start(ticks);
+        get_game().processor().start(ticks);
      }
      else
      {
@@ -219,8 +212,8 @@ namespace autonomy {
      }
    }
    
-   template <typename P>
-   void dui<P>::sleep_for(std::istream & is)
+
+   void dui::sleep_for(std::istream & is)
    {
      unsigned int microsecs;
    
@@ -232,8 +225,8 @@ namespace autonomy {
      usleep(microsecs);
    }
    
-   template <typename P>
-   void dui<P>::create_entity(std::istream & is)
+
+   void dui::create_entity(std::istream & is)
    {
       int                    x,y,fuel;
       std::string            type;
@@ -263,18 +256,18 @@ namespace autonomy {
          entity_loc.x() = x;
          entity_loc.y() = y;
   	 
-	      if((typeid(_loc.query(entity_loc)) == typeid(entity::asteroid))
-	         ||(typeid(_loc.query(entity_loc)) == typeid(entity::drone))
-	         ||(typeid(_loc.query(entity_loc)) == typeid(entity::base_station)))
+	      if((typeid(get_game().location_module().query(entity_loc)) == typeid(entity::asteroid))
+	         ||(typeid(get_game().location_module().query(entity_loc)) == typeid(entity::drone))
+	         ||(typeid(get_game().location_module().query(entity_loc)) == typeid(entity::base_station)))
          {
 	         std::cerr << "An entity already exists at " << entity_loc << std::endl;
          }
 	      else
 	      {
-	         parent().uni()->send_action(1 - _proc.current_queue(),
+	         get_game().uni()->send_action(1 - get_game().processor().current_queue(),
                       (new action::create_asteroid(fuel,
                                                    entity_loc,
-                                                   parent().uni())));
+                                                   get_game().uni())));
          }
       }
       else if (type == "drone")
@@ -305,17 +298,17 @@ namespace autonomy {
          entity_loc.x() = x;
          entity_loc.y() = y;
    
-         my_script = _library.new_script(filename);
-         _library.read_script( my_script, file );
+         my_script = get_game().script_library().new_script(filename);
+         get_game().script_library().read_script( my_script, file );
 
-         compiler_errors = _library.compile_script(my_script);
+         compiler_errors = get_game().script_library().compile_script(my_script);
          if ( compiler_errors != std::string() )
          {
             std::cerr << compiler_errors << std::endl;
          }
          else
          {
-            boost::shared_ptr<instruction_list> compiled_script(_library.fetch_compiled_script( my_script ));
+            boost::shared_ptr<instruction_list> compiled_script(get_game().script_library().fetch_compiled_script( my_script ));
        
 #ifdef DEBUG
            BOOST_FOREACH( boost::shared_ptr<script_instruction> a, *compiled_script )
@@ -324,11 +317,11 @@ namespace autonomy {
            }
 #endif
    
-           parent().uni()->send_action(1 - _proc.current_queue(),
+           get_game().uni()->send_action(1 - get_game().processor().current_queue(),
                      (new action::create_drone(fuel,
                                                entity_loc,
                                                compiled_script,
-                                               parent().uni())));
+                                               get_game().uni())));
          }
       }
       else
@@ -338,8 +331,8 @@ namespace autonomy {
          std::cerr << std::endl;
    }
    
-   template <typename P>
-   void dui<P>::save_game(std::istream & is)
+
+   void dui::save_game(std::istream & is)
    {
       pause_game();
       std::string filename;
@@ -348,18 +341,18 @@ namespace autonomy {
          std::cerr << "\tFilename?: ";
       is >> filename;
    
-      if (parent().save(filename))
+      if (get_game().save(filename))
           std::cerr << "Saved successfully" << std::endl;
       else
           std::cerr << "Save failed" << std::endl;
    }
    
-   template <typename P>
-   void dui<P>::load_game(std::istream & is)
+
+   void dui::load_game(std::istream & is)
    {
       std::string filename;
 
-      if (_proc.is_going())
+      if (get_game().processor().is_going())
          std::cerr << "The game must be paused before loading." << std::endl; 
       else
       {
@@ -367,23 +360,23 @@ namespace autonomy {
 	         std::cerr << "\tFilename?: ";
          is >> filename;
    
-         if( parent().restore(filename))
+         if( get_game().restore(filename))
              std::cerr << "Loaded successfully" << std::endl;
          else
              std::cerr << "Load failed" << std::endl;
       }
    }
    
-   template <typename P>
-   void dui<P>::status(std::istream & is)
+
+   void dui::status(std::istream & is)
    {
       util::coord_pair sw(MAP_MIN,MAP_MIN);
       util::coord_pair ne(MAP_MAX,MAP_MAX);
-      typename location_module ::view_ptr_t  current_view = _loc.view(sw,ne);
+      typename location_module ::view_ptr_t  current_view = get_game().location_module().view(sw,ne);
       typename std::vector< typename location_module::relation_t >::iterator view_iterator = current_view->begin();
       entity_id_t current_entity;
    
-      if (_proc.is_going())
+      if (get_game().processor().is_going())
       {
          std::cerr << "The game is running." << std::endl;
       }
@@ -433,8 +426,8 @@ namespace autonomy {
       }
    }
    
-   template <typename P>
-   void dui<P>::pause_game(std::istream & is)
+
+   void dui::pause_game(std::istream & is)
    {
      if(!_started)
      {
@@ -442,21 +435,21 @@ namespace autonomy {
      }
      else
      {
-      parent().pause();
+      get_game().pause();
       std::cerr << "Game Paused." << std::endl;
      }
    }
    
-   template <typename P>
-   void dui<P>::resume_game(std::istream & is)
+
+   void dui::resume_game(std::istream & is)
    {
-      if (!_proc.is_going() && _started) 
+      if (!get_game().processor().is_going() && _started) 
       {
          std::cerr << "Resuming game..." << std::endl;
    
          _proc_thread = boost::thread(
                           boost::bind(&processor::start,
-                                      boost::ref(_proc),
+                                      boost::ref(get_game().processor()),
                                       boost::integer_traits<unsigned int>::max() ));
       }
       else if(!_started)
@@ -469,14 +462,14 @@ namespace autonomy {
       }
    }
    
-   template <typename P>
-   void dui<P>::stop_game(std::istream & is)
+
+   void dui::stop_game(std::istream & is)
    {
-      parent().pause();
+      get_game().pause();
 #ifdef DEBUG
     std::cerr << "Paused!" << std::endl; 
 #endif
-      _loc.clear();
+      get_game().location_module().clear();
 
       started_mutex.lock();
       _started = false;
@@ -485,7 +478,7 @@ namespace autonomy {
 #ifdef DEBUG
     std::cerr << "Stopping" << std::endl;
 #endif
-      _proc.stop();
+      get_game().processor().stop();
 #ifdef DEBUG
       std::cerr << "Joining" << std::endl;
 #endif
@@ -493,8 +486,8 @@ namespace autonomy {
       std::cerr << "Ended the game." << std::endl;
    }
    
-   template <typename P>
-   void dui<P>::end_game(std::istream & is)
+
+   void dui::end_game(std::istream & is)
    {
       std::cerr << "Exiting the game..." << std::endl;
 
@@ -503,7 +496,7 @@ namespace autonomy {
       has_quit_mutex.unlock();
       
 #ifdef DEBUG
-      std::cerr << "_proc.stop()" << std::endl;
+      std::cerr << "processor.stop()" << std::endl;
 #endif
       if(_started)
           stop_game();
@@ -512,8 +505,8 @@ namespace autonomy {
 #endif
    }
    
-   template <typename P>
-   int dui<P>::safe_int_input(std::istream & is)
+
+   int dui::safe_int_input(std::istream & is)
    {
       int input;
 
@@ -539,8 +532,8 @@ namespace autonomy {
                return boost::optional<T>();
        }
 
-   template <typename P>
-   bool dui<P>::create_base()
+
+   bool dui::create_base()
    {
       if (!_started)
       {
@@ -551,9 +544,9 @@ namespace autonomy {
 #endif
          util::coord_pair station_loc(0,0);
 
-         if( parent().location_module().query(station_loc).is_valid() )
+         if( get_game().location_module().query(station_loc).is_valid() )
          {
-            if ( typeid(*parent().location_module().query(station_loc))
+            if ( typeid(*get_game().location_module().query(station_loc))
                    == typeid(entity::base_station) )
                make_station = false;
             else
@@ -571,11 +564,16 @@ namespace autonomy {
             std::cerr << "start_game(): send create_station action to _uni"
                       << std::endl;
 #endif
-            parent().uni()->send_action(1, static_cast<action_generic*>(
+            get_game().uni()->send_action(1, static_cast<action_generic*>(
                         new action::create_station(STATION_FUEL, station_loc)));
          }
       }
 
       return true;
+   }
+
+   void dui::wait()
+   {
+     _dui_thread.join();
    }
 }

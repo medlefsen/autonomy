@@ -20,7 +20,6 @@ namespace autonomy
 {
     game::game()
         : autonomy::processor(),
-          autonomy::dui<game>(),
           _uni(new entity::universe(*static_cast<game*>(this))),
           _uis{
 #ifndef DUI
@@ -32,25 +31,10 @@ namespace autonomy
        for(auto ui : _uis) {
          ui.init(*this);
        }
-
-       // If we don't keep the game's thread busy while
-       // the dui is going it'll without us and bad
-       // things will happen.
-       while (!(dui().has_quit()))
-       {
-#ifdef DEBUG
-           std::cout << "Game: Dui still running" << std::endl;
-#endif
-          sleep(1);
-       }
-#ifdef DEBUG
-       std::cout << "Game: Finished" << std::endl;
-#endif
     }
 
     game::game(std::string filename)
         : autonomy::processor(),
-          autonomy::dui<game>(filename),
           _uni(new entity::universe(*static_cast<game*>(this))),
           _file(filename),
           _uis{generic_ui<game>::create<gui<game>>()}

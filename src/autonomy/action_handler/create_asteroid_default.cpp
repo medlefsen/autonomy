@@ -18,13 +18,12 @@ namespace autonomy
         {
             location_module & loc  (entity.location_module());
             processor             & proc (entity.processor());
-
-            BOOST_FOREACH(action::create_asteroid * ca, _action_group)
+            
+            for(action::create_asteroid * ca : _action_group)
             {
                entity_id_t      me(entity);
                util::coord_pair asteroid_loc(ca->location());
-               entity_id_t      new_asteroid(static_cast<entity_generic*>
-                                   (new entity::asteroid(me, ca->fuel())));
+               entity_id_t      new_asteroid(static_cast<entity_generic*>(new entity::asteroid(me, ca->fuel())));
                action_generic*  car;
 
                if (loc.move(new_asteroid, asteroid_loc))

@@ -32,6 +32,7 @@ add_executable(autonomy
   ./src/autonomy/compiler/translator_exceptions.cpp
   ./src/autonomy/compiler/translator_functors.cpp
   ./src/autonomy/compiler/type.cpp
+  ./src/autonomy/dui.cpp
   ./src/autonomy/entity/asteroid.cpp
   ./src/autonomy/entity/base_station.cpp
   ./src/autonomy/entity/drone.cpp

@@ -1,4 +1,7 @@
 #include <autonomy/action_handler/scan_default.hpp>
+#include <autonomy/entity/base_station.hpp>
+#include <autonomy/entity/scripted_drone.hpp>
+#include <autonomy/entity/asteroid.hpp>
 
 BOOST_CLASS_EXPORT(autonomy::action_handler::scan_default);
 BOOST_CLASS_EXPORT(autonomy::action_handler::scan_response_default);

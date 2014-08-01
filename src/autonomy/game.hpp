@@ -11,15 +11,13 @@
 #include <autonomy/processor.hpp>
 #include <autonomy/location_module.hpp>
 #include <autonomy/script_library.hpp>
-#include <autonomy/dui.hpp>
 #include <autonomy/generic_ui.hpp>
 #include <vector>
 
 namespace autonomy
 {
     class game
-        : public processor,
-          public dui< game >
+        : public processor
 
     {
         friend class boost::serialization::access;
@@ -50,22 +48,6 @@ namespace autonomy
             const autonomy::script_library & script_library() const
             {
                 return script_library_;
-            }
-            autonomy::dui<game> & dui()
-            {
-                return *static_cast<autonomy::dui<game>*>(this);
-            }
-            const autonomy::dui<game> & dui() const
-            {
-                return *static_cast<const autonomy::dui<game>*>(this);
-            }
-            autonomy::dui<game> & dui(std::string filename)
-            {
-                return *static_cast<autonomy::dui<game>*>(this);
-            }
-            const autonomy::dui<game> & dui(std::string filename) const
-            {
-                return *static_cast<const autonomy::dui<game>*>(this);
             }
 
             void update_ui();

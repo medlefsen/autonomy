@@ -18,26 +18,25 @@
 
 namespace autonomy
 {
-   template <typename parent_type>
    class dui
    {
       public:
-         typedef std::map<std::string, void(autonomy::dui<parent_type>::*)(std::istream & is)> cmd_map_t;
+         typedef std::map<std::string, void(autonomy::dui::*)(std::istream & is)> cmd_map_t;
 
          dui();
          dui(std::string filename);
 
+         game& get_game()
+         {
+           return game_;
+         }
+
+         const game& get_game() const
+         {
+           return game_;
+         }
+
          ~dui();
-
-         parent_type& parent()
-         {   
-            return *static_cast<parent_type*>(this);
-         }   
-
-         const parent_type& parent() const
-         {   
-            return *static_cast<const parent_type*>(this);
-         } 
 
          // Fucntions that are mapped to commands in cmp_map
          void help          (std::istream & is = std::cin);
@@ -62,6 +61,8 @@ namespace autonomy
          {
             return _has_quit;
          }
+
+         void wait();
       private:
          boost::thread  _dui_thread;
          boost::thread  _proc_thread;
@@ -70,15 +71,10 @@ namespace autonomy
          bool           _has_quit;
          boost::mutex   started_mutex;
          boost::mutex   has_quit_mutex;
-         //entity_id_t   _uni;
-         location_module& _loc;
-         script_library&  _library;
-         processor&                      _proc;
+         game game_;
    };
    template <typename T>
        boost::optional<T> prompt(std::istream & is, std::string prompt);
-
 }
 
-#include <autonomy/dui.inc.cpp>
 #endif

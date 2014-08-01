@@ -1,5 +1,6 @@
 #include <autonomy/action_handler/create_station_default.hpp>
 #include <autonomy/entity/universe.hpp>
+#include <autonomy/entity/base_station.hpp>
 
 BOOST_CLASS_EXPORT(autonomy::action_handler::create_station_default);
 
@@ -13,7 +14,7 @@ namespace autonomy
             location_module & loc (entity.location_module());
             processor             & proc(entity.processor());
 
-            BOOST_FOREACH(action::create_station * cs, _action_group) 
+            for(action::create_station * cs : _action_group) 
             //for ( _action_group_t::iterator i(_action_group.begin());
             //        i != _action_group.end();
             //        ++i )

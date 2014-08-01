@@ -1,4 +1,5 @@
 #include <autonomy/game.hpp>
+#include <autonomy/dui.hpp>
 #include <getopt.h>
 #include <iostream>
 #include <string>
@@ -29,9 +30,9 @@ int main( int argc, char ** argv)
    }
 
    if (filename != "")
-      game new_game(filename);
+      dui{filename}.wait();
    else
-      game new_game;
+      dui{}.wait();
 #ifdef DEBUG
    std::cout << "Autonomy Finished!" << std::endl;
 #endif
