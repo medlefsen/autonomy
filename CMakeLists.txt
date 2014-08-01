@@ -43,6 +43,7 @@ add_executable(autonomy
   ./src/autonomy/script_builtins.cpp
   ./src/autonomy/script_commands.cpp
   ./src/autonomy/script_object.cpp
+  ./src/autonomy/script_library.cpp
   ./src/autonomy/viewport.cpp
 )
 

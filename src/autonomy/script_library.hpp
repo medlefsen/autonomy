@@ -21,7 +21,6 @@
 namespace autonomy
 {
 
-    template < typename ParentT >
     class script_library
     {
         friend class boost::serialization::access;
@@ -32,15 +31,6 @@ namespace autonomy
         public:
             script_library()
             {}
-
-            ParentT & parent()
-            {
-                return *static_cast< ParentT* >(this);
-            }
-            const ParentT & parent() const
-            {
-                return *static_cast< ParentT* >(this);
-            }
 
 
             //! Create a new script, with an optional name, returns id of the
@@ -97,5 +87,4 @@ namespace autonomy
     };
 }
 
-#include <autonomy/script_library.inc.cpp>
 #endif

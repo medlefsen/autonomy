@@ -72,7 +72,7 @@ namespace autonomy
          boost::mutex   has_quit_mutex;
          //entity_id_t   _uni;
          location_module& _loc;
-         script_library< parent_type >&  _library;
+         script_library&  _library;
          processor&                      _proc;
    };
    template <typename T>

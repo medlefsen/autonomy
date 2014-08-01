@@ -1,7 +1,9 @@
+#include <autonomy/script_library.hpp>
+
 namespace autonomy
 {
-    template < typename ParentT >
-    script_object_id_t script_library<ParentT>::new_script(
+
+    script_object_id_t script_library::new_script(
         std::string name)
     {
         // use temporary shared pointer as advised by the Boost.Smart_ptr
@@ -24,8 +26,8 @@ namespace autonomy
         return temp->id();
     }
 
-    template < typename ParentT >
-    std::string script_library<ParentT>::fetch_name( script_object_id_t script ) const
+
+    std::string script_library::fetch_name( script_object_id_t script ) const
     {
         std::string name;
 
@@ -39,8 +41,8 @@ namespace autonomy
         return name;
     }
 
-    template < typename ParentT >
-    bool script_library<ParentT>::set_script( script_object_id_t script,
+
+    bool script_library::set_script( script_object_id_t script,
                                      std::string text )
     {
         _script_store_mutex.lock_upgrade();
@@ -58,8 +60,8 @@ namespace autonomy
         return true;
     }
 
-    template < typename ParentT >
-    bool script_library<ParentT>::read_script( script_object_id_t script,
+
+    bool script_library::read_script( script_object_id_t script,
                                       std::istream & is )
     {
         _script_store_mutex.lock_upgrade();
@@ -77,8 +79,8 @@ namespace autonomy
         return true;
     }
 
-    template < typename ParentT >
-    bool script_library<ParentT>::rename_script ( script_object_id_t script,
+
+    bool script_library::rename_script ( script_object_id_t script,
                                          std::string name )
     {
         _script_store_mutex.lock_upgrade();
@@ -96,8 +98,8 @@ namespace autonomy
         return true;
     }
 
-    template < typename ParentT >
-    bool script_library<ParentT>::replace_script( script_object_id_t script,
+
+    bool script_library::replace_script( script_object_id_t script,
                                          const std::string & text )
     {
         _script_store_mutex.lock_upgrade();
@@ -114,16 +116,16 @@ namespace autonomy
         return true;
     }
 
-    template < typename ParentT >
-    void script_library<ParentT>::delete_script( script_object_id_t script )
+
+    void script_library::delete_script( script_object_id_t script )
     {
         _script_store_mutex.lock();
         _script_store.erase(script);
         _script_store_mutex.unlock();
     }
 
-    template < typename ParentT >
-    std::string script_library<ParentT>::compile_script( script_object_id_t script )
+
+    std::string script_library::compile_script( script_object_id_t script )
     {
         _script_store_mutex.lock_upgrade();
         _script_store_t::iterator script_handle(_script_store.find(script));
@@ -138,8 +140,8 @@ namespace autonomy
         return errors;
     }
 
-    template < typename ParentT >
-    boost::shared_ptr< instruction_list > script_library<ParentT>::fetch_compiled_script(
+
+    boost::shared_ptr< instruction_list > script_library::fetch_compiled_script(
         script_object_id_t script ) const
     {
         boost::shared_ptr< instruction_list > compiled;
@@ -156,13 +158,16 @@ namespace autonomy
         return compiled;
     }
 
-    template < typename ParentT >
+
     std::vector< std::pair < script_object_id_t, std::string > > 
-    script_library<ParentT>::fetch_scripts( ) const
+    script_library::fetch_scripts( ) const
     {
       std::vector< std::pair< script_object_id_t, std::string > > scripts;
       _script_store_mutex.lock_shared();
-      std::copy(_script_store.begin(),_script_store.end(),scripts.begin());
+      for( auto& script_pair : _script_store )
+      {
+        scripts.emplace_back(script_pair.first,script_pair.second->name());
+      }
       _script_store_mutex.unlock_shared();
       return scripts;
     }
