@@ -298,17 +298,17 @@ namespace autonomy {
          entity_loc.x() = x;
          entity_loc.y() = y;
    
-         my_script = get_game().script_library().new_script(filename);
-         get_game().script_library().read_script( my_script, file );
+         my_script = lib_.new_script(filename);
+         lib_.read_script( my_script, file );
 
-         compiler_errors = get_game().script_library().compile_script(my_script);
+         compiler_errors = lib_.compile_script(my_script);
          if ( compiler_errors != std::string() )
          {
             std::cerr << compiler_errors << std::endl;
          }
          else
          {
-            boost::shared_ptr<instruction_list> compiled_script(get_game().script_library().fetch_compiled_script( my_script ));
+            boost::shared_ptr<instruction_list> compiled_script(lib_.fetch_compiled_script( my_script ));
        
 #ifdef DEBUG
            BOOST_FOREACH( boost::shared_ptr<script_instruction> a, *compiled_script )

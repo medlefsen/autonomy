@@ -15,6 +15,7 @@
 #include <boost/thread.hpp>
 
 #include <autonomy/game.hpp>
+#include <autonomy/script_library.hpp>
 
 namespace autonomy
 {
@@ -71,6 +72,7 @@ namespace autonomy
          bool           _has_quit;
          boost::mutex   started_mutex;
          boost::mutex   has_quit_mutex;
+         script_library lib_;
          game game_;
    };
    template <typename T>

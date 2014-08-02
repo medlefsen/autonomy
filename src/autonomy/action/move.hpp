@@ -6,6 +6,7 @@
 #include <autonomy/action.hpp>
 #include <autonomy/entity.hpp>
 #include <autonomy/entity/drone.hpp>
+#include <autonomy/entity/scripted_drone.hpp>
 #include <autonomy/entity/universe.hpp>
 #include <autonomy/action_handler/move_default.hpp>
 
