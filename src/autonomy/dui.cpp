@@ -128,6 +128,8 @@ namespace autonomy {
       }
 
       run(file);
+      _interactive = true;
+      run(std::cin);
    }
    
 
