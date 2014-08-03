@@ -2,7 +2,25 @@ cmake_minimum_required(VERSION 2.8)
 
 project(autonomy)
 
-include_directories( src )
+include(ExternalProject)
+
+ExternalProject_Add(
+  CAF
+  GIT_REPOSITORY https://github.com/actor-framework/actor-framework.git
+  GIT_TAG master
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+)
+
+ExternalProject_Get_Property(CAF install_dir)
+set(CAF_INCLUDE_DIR ${install_dir}/include)
+set(CAF_LIB_DIR ${install_dir}/lib)
+
+include_directories( src ${CAF_INCLUDE_DIR} )
+link_directories( ${CAF_LIB_DIR} )
+
+set(CORE_LIBS -lboost_thread -lboost_serialization -lboost_system -lpthread -lcaf_core )
+set(GUI_LIBS -lSDL -lSDL_mixer -lSDL_image -lSDL_gfx -lSDL_ttf)
+
 add_compile_options(-Wall -DBOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE -DBOOST_SPIRIT_USE_OLD_NAMESPACE -fpermissive -ftemplate-depth=1024 -ftemplate-backtrace-limit=0 -std=gnu++11)
 
 add_executable(autonomy 
@@ -48,4 +66,4 @@ add_executable(autonomy
   ./src/autonomy/viewport.cpp
 )
 
-target_link_libraries(autonomy -lSDL -lSDL_mixer -lSDL_image -lSDL_gfx -lSDL_ttf -lboost_thread -lboost_serialization -lboost_system -lpthread)
+target_link_libraries(autonomy ${CORE_LIBS} ${GUI_LIBS} )
