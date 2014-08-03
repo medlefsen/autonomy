@@ -17,7 +17,6 @@ namespace autonomy
                                                size_t which_queue )
         {
             location_module & loc  (entity.location_module());
-            processor             & proc (entity.processor());
             
             for(action::create_asteroid * ca : _action_group)
             {
@@ -29,7 +28,7 @@ namespace autonomy
                if (loc.move(new_asteroid, asteroid_loc))
                {
                     car = static_cast<action_generic*>(new action::create_asteroid_response(true));
-                    proc.add(new_asteroid);
+                    entity.add(new_asteroid);
                }
                else
                {

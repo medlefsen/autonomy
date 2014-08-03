@@ -12,7 +12,6 @@ namespace autonomy
         void create_station_default::execute( entity::universe & entity, size_t which_queue )
         {
             location_module & loc (entity.location_module());
-            processor             & proc(entity.processor());
 
             for(action::create_station * cs : _action_group) 
             //for ( _action_group_t::iterator i(_action_group.begin());
@@ -34,9 +33,9 @@ namespace autonomy
                if (loc.move(new_station, base_loc))
                {
 #ifdef DEBUG
-                    std::cout << "Universe: Adding new_station to proc.\n";
+                    std::cout << "Universe: Adding new_station to universe.\n";
 #endif
-                    proc.add(new_station);
+                    entity.add(new_station);
                }
             }
 

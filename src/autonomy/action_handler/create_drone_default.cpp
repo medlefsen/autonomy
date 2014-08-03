@@ -16,7 +16,6 @@ namespace autonomy
         void create_drone_default::execute( entity::universe & entity, size_t which_queue )
         {
             location_module & loc (entity.location_module());
-            processor             & proc(entity.processor());
 
             BOOST_FOREACH(action::create_drone * cd, _action_group)
             {
@@ -29,7 +28,7 @@ namespace autonomy
                if (loc.move(new_drone, drone_loc))
                {
                     cdr = static_cast<action_generic*>(new action::create_drone_response(true));
-                    proc.add(new_drone);
+                    entity.add(new_drone);
                }
                else
                {

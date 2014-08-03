@@ -21,10 +21,9 @@ namespace autonomy
         void destroy_entity_default::execute( entity::universe & entity, 
                                               size_t which_queue )
         {
-            processor & proc(entity.processor());
             BOOST_FOREACH(action::destroy_entity * de, _action_group)
             {
-                proc.remove(de->entity());
+                entity.remove(de->entity());
             }
         }
     }

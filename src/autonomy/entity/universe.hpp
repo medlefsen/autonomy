@@ -19,25 +19,23 @@ namespace autonomy { namespace entity
       : public entity_base<universe>
   {
       public:
-      universe(game & which_game)
-          : entity_base<universe>(), _which_game(&which_game)
+      universe(game& g)
+          : entity_base<universe>(), game_(&g)
       {}
 
       virtual ~universe()
       {}
 
+      void add(entity_id_t entity_ptr);
+    
+      void remove(entity_id_t entity_ptr);
+
       location_module & location_module() const;
-
-      autonomy::processor & processor() const;
-
-      autonomy::game & which_game() const
-      {
-          return (*_which_game);
-      }
+      game& which_game();
 
       private:
       universe(){}
-      game * _which_game;
+      game* game_;
 
       virtual void controller(size_t actv);
 
@@ -46,7 +44,7 @@ namespace autonomy { namespace entity
       void serialize(Archive & ar, const unsigned int version )
       {
           ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(entity_base<universe>);
-          ar & BOOST_SERIALIZATION_NVP(_which_game);
+          ar & BOOST_SERIALIZATION_NVP(game_);
       }
   };
 }}
