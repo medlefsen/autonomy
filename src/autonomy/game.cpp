@@ -33,18 +33,6 @@ namespace autonomy
        }
     }
 
-    game::game(std::string filename)
-        : autonomy::processor(),
-          _uni(new entity::universe(*static_cast<game*>(this))),
-          _file(filename),
-          _uis{generic_ui<game>::create<gui<game>>()}
-    {
-       processor().add(_uni);
-       for(auto ui : _uis) {
-         ui.init(*this);
-       }
-    }
-
     void game::update_ui()
     {
       for(auto ui : _uis) {

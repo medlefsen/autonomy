@@ -22,7 +22,6 @@ namespace autonomy
         friend class boost::serialization::access;
         public:
             game();
-            game(std::string filename);
 
             autonomy::processor & processor()
             {
@@ -63,14 +62,9 @@ namespace autonomy
             {
                return _uni;
             }
-            std::string file() const
-            {
-               return _file;
-            }
         private:
             autonomy::location_module location_module_;
             entity_id_t _uni;
-            std::string _file;
             std::vector<generic_ui<game>> _uis;
 
 
@@ -80,7 +74,6 @@ namespace autonomy
                 ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(autonomy::processor);
                 ar & BOOST_SERIALIZATION_NVP(location_module_);
                 ar & BOOST_SERIALIZATION_NVP(_uni);
-                ar & BOOST_SERIALIZATION_NVP(_file);
             }
     };
 }
