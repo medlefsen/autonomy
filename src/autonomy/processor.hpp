@@ -14,6 +14,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/shared_mutex.hpp>
 #include <autonomy/entity.hpp>
+#include <atomic>
 
 namespace autonomy
 {
@@ -135,7 +136,7 @@ namespace autonomy
             mutable std::vector<entity_id_t> remove_queue;
             mutable boost::mutex remove_mutex;
 
-            bool going;
+            std::atomic<bool> going;
             size_t queue_index;
     };
 
