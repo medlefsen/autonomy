@@ -8,8 +8,7 @@ namespace autonomy
     namespace action_handler
     {
 
-        void hide_entity_default::execute( entity::universe & entity, 
-                                           size_t which_queue )
+        void hide_entity_default::execute( entity::universe & entity )
         {
             location_module & loc (entity.location_module());
             BOOST_FOREACH(action::hide_entity * he, _action_group)
@@ -18,8 +17,7 @@ namespace autonomy
             }
         }
 
-        void destroy_entity_default::execute( entity::universe & entity, 
-                                              size_t which_queue )
+        void destroy_entity_default::execute( entity::universe & entity )
         {
             BOOST_FOREACH(action::destroy_entity * de, _action_group)
             {

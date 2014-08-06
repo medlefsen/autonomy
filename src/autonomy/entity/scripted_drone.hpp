@@ -61,7 +61,7 @@ namespace autonomy
                 int _pc;
                 unsigned int _wait_ticks;
 
-                virtual void controller(size_t which_queue);
+                virtual void controller();
 #if 0
                 template <class Archive>
                     void save( Archive & ar, const unsigned int version )

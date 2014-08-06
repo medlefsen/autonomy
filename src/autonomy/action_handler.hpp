@@ -39,7 +39,7 @@ namespace autonomy
 
             virtual void append_action( action_generic & action ) = 0;
 
-            virtual void operator()( entity_ref_t entity, size_t which_queue ) = 0;
+            virtual void operator()( entity_ref_t entity ) = 0;
 
         private:
             friend class boost::serialization::access;
@@ -73,11 +73,11 @@ namespace autonomy
                 _action_group.push_back(static_cast< ActionT* >(&action));
             }
 
-            virtual void execute( TargetT & entity, size_t which_queue ) = 0;
+            virtual void execute( TargetT & entity ) = 0;
 
-            virtual void operator()( entity_ref_t entity, size_t which_queue )
+            virtual void operator()( entity_ref_t entity )
             {
-                execute(static_cast< TargetT& >(entity), which_queue);
+                execute(static_cast< TargetT& >(entity));
             }
 
             virtual void clear()
@@ -126,11 +126,11 @@ namespace autonomy
                 }
             }
 
-            virtual void execute( TargetT & entity, size_t which_queue )
+            virtual void execute( TargetT & entity )
             {
                 BOOST_FOREACH(_handler_link_t* next_handler, _handler_chain)
                 {
-                    next_handler->execute(entity, which_queue);
+                    next_handler->execute(entity);
                 }
             }
 

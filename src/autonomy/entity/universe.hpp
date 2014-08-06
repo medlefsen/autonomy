@@ -37,7 +37,7 @@ namespace autonomy { namespace entity
       universe(){}
       game* game_;
 
-      virtual void controller(size_t actv);
+      virtual void controller();
 
       friend class boost::serialization::access;
       template < class Archive >

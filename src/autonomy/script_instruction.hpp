@@ -13,8 +13,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         private:
-            virtual unsigned int virtual_execute(size_t which_queue, 
-                                                 entity::scripted_drone & drone) = 0;
+            virtual unsigned int virtual_execute(entity::scripted_drone & drone) = 0;
             virtual std::string virtual_name() const = 0;
 
         protected:
@@ -23,10 +22,9 @@ namespace autonomy {
         public:
             virtual ~script_instruction()
             {}
-            unsigned int execute(size_t which_queue, 
-                                 entity::scripted_drone & drone)
+            unsigned int execute(entity::scripted_drone & drone)
             {
-                return virtual_execute(which_queue, drone);
+                return virtual_execute(drone);
             }
             std::string name() const
             {
@@ -52,8 +50,7 @@ namespace autonomy {
         : public script_instruction
     {
         friend class boost::serialization::access;
-        virtual unsigned int virtual_execute(size_t which_queue,
-                                             entity::scripted_drone & drone);
+        virtual unsigned int virtual_execute( entity::scripted_drone & drone);
         virtual std::string virtual_name() const;
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -66,10 +63,9 @@ namespace autonomy {
 
     template < typename subclass >
     unsigned int script_instruction_base< subclass >::virtual_execute(
-        size_t which_queue,
         entity::scripted_drone & drone)
     {
-        return static_cast< subclass* >(this)->execute(which_queue, drone);
+        return static_cast< subclass* >(this)->execute(drone);
     }
 
     template < typename subclass >

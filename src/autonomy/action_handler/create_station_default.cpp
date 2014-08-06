@@ -9,7 +9,7 @@ namespace autonomy
     namespace action_handler
     {
 
-        void create_station_default::execute( entity::universe & entity, size_t which_queue )
+        void create_station_default::execute( entity::universe & entity )
         {
             location_module & loc (entity.location_module());
 

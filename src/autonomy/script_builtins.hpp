@@ -21,7 +21,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "dup"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -36,7 +36,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "pop"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -54,7 +54,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "add"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -71,7 +71,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "sub"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -88,7 +88,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "multiply"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -105,7 +105,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "divide"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -122,7 +122,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "power"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -136,7 +136,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "jump"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -150,7 +150,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "rel_jump"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -165,7 +165,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "cond_jump"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -180,7 +180,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "cond_rel_jump"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -197,7 +197,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "equals"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -215,7 +215,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "less_than"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -229,7 +229,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "and"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -243,7 +243,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "or"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -257,7 +257,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "not"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -276,7 +276,7 @@ namespace autonomy { namespace script_builtins{
         {}
         std::string name() const { return "literal " + boost::lexical_cast<std::string>(_val); }
 
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
 
         private:
         template<class Archive>
@@ -293,7 +293,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "load"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -307,7 +307,7 @@ namespace autonomy { namespace script_builtins{
     {
         friend class boost::serialization::access;
         static std::string name() { return "store"; }
-        virtual unsigned int execute(size_t which_queue, entity::scripted_drone & drone);
+        virtual unsigned int execute(entity::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)

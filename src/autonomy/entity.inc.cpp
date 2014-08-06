@@ -47,7 +47,7 @@ namespace autonomy
         // process actions //
         BOOST_FOREACH(action_handler_generic * & i, handlers)
         {
-            (*i)(*this, which_queue);
+            (*i)(*this);
             delete i;
         }
 

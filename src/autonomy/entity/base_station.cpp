@@ -8,7 +8,7 @@ namespace autonomy
 { 
     namespace entity 
     {
-        void base_station::controller(size_t which_queue)
+        void base_station::controller()
         {
 #ifndef DUI
             _which_game->update_ui();

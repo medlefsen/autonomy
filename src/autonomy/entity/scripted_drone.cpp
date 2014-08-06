@@ -20,7 +20,7 @@ namespace autonomy
     namespace entity
     {
 
-        void scripted_drone::controller(size_t which_queue)
+        void scripted_drone::controller()
         {
             // process instructions, if necessary
             if ( _wait_ticks > 0 )
@@ -31,13 +31,12 @@ namespace autonomy
             {
                 if ( get_fuel() <= 0 )
                 {
-                    universe()->send_action(which_queue, 
-                                            new action::destroy_entity(*this));
+                    universe()->send_action(new action::destroy_entity(*this));
                     return;
                 }
                 else
                 {
-                    _wait_ticks = (*_script)[_pc]->execute(which_queue, *this);
+                    _wait_ticks = (*_script)[_pc]->execute(*this);
                     ++_pc;
                 }
             }

@@ -15,11 +15,11 @@ namespace autonomy
 { 
     namespace entity 
     {
-        void asteroid::controller(size_t which_queue)
+        void asteroid::controller()
         {
             if ( get_fuel() == 0 )
             {
-                universe()->send_action(which_queue, new action::hide_entity(*this));
+                universe()->send_action(new action::hide_entity(*this));
                 drain_fuel(1);
             }
             else if ( get_fuel() < 0 )
@@ -28,7 +28,7 @@ namespace autonomy
             }
             else if ( get_fuel() < -2 )
             {
-                universe()->send_action(which_queue, new action::destroy_entity(*this));
+                universe()->send_action(new action::destroy_entity(*this));
             }
         }
     }

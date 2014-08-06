@@ -45,7 +45,7 @@ namespace autonomy {
     const int MINE_FUEL_AMOUNT = 5;
     const int UNLOAD_FUEL_AMOUNT = 5;
 
-        unsigned int move::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int move::execute(entity::scripted_drone & drone)
         {
             // note the implication here that even attempting to move
             // requires fuel
@@ -54,7 +54,7 @@ namespace autonomy {
                 drone.drain_fuel(MOVE_FUEL_COST);
                 int vert(drone.pop_stack());
                 int horz(drone.pop_stack());
-                drone.universe()->send_action(which_queue,
+                drone.universe()->send_action(
                         static_cast<action_generic*>(
                             new action::move_direction(horz, vert, drone)));
 #if DEBUG
@@ -65,36 +65,36 @@ namespace autonomy {
             else
             {
                 drone.drain_fuel(drone.get_fuel());
-                drone.universe()->send_action(which_queue, 
+                drone.universe()->send_action( 
                                               new action::hide_entity(drone));
                 return 1;
             }
         }
 
-        unsigned int get_x::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int get_x::execute(entity::scripted_drone & drone)
         {
-            drone.universe()->send_action(which_queue,
+            drone.universe()->send_action(
                     static_cast<action_generic*>(
                         new action::where(action::where::X, drone)));
             return 1;
         }
 
-        unsigned int get_y::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int get_y::execute(entity::scripted_drone & drone)
         {
-            drone.universe()->send_action(which_queue,
+            drone.universe()->send_action(
                     static_cast<action_generic*>(
                         new action::where(action::where::Y, drone)));
             return 1;
         }
 
-        unsigned int scan::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int scan::execute(entity::scripted_drone & drone)
         {
             if(SCAN_FUEL_COST < drone.get_fuel())
             {
                 int y(drone.pop_stack());
                 int x(drone.pop_stack());
                 drone.drain_fuel(SCAN_FUEL_COST);
-                drone.universe()->send_action(which_queue,
+                drone.universe()->send_action(
                         static_cast<action_generic*>(
                             new action::scan(util::coord_pair(x, y), drone)));
                 return 1;
@@ -102,13 +102,13 @@ namespace autonomy {
             else 
             {
                 drone.drain_fuel(drone.get_fuel());
-                drone.universe()->send_action(which_queue, 
+                drone.universe()->send_action( 
                                               new action::hide_entity(drone));
                 return 1;
             }
         }
 
-        unsigned int is_drone::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int is_drone::execute(entity::scripted_drone & drone)
         {
             int entity_type(drone.pop_stack());
             if ( entity_type == static_cast<int>(entity::scripted_drone::DRONE) )
@@ -118,7 +118,7 @@ namespace autonomy {
             return 0;
         }
 
-        unsigned int is_asteroid::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int is_asteroid::execute(entity::scripted_drone & drone)
         {
             int entity_type(drone.pop_stack());
             if ( entity_type == static_cast<int>(entity::scripted_drone::ASTEROID) )
@@ -128,7 +128,7 @@ namespace autonomy {
             return 0;
         }
 
-        unsigned int is_base::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int is_base::execute(entity::scripted_drone & drone)
         {
             int entity_type(drone.pop_stack());
             if ( entity_type == static_cast<int>(entity::scripted_drone::BASE) )
@@ -142,32 +142,32 @@ namespace autonomy {
     boost::uniform_int<> rand_dir::dir(-1,1);
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rand_dir::_rand_dir(rng,dir);
 
-        unsigned int rand_dir::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int rand_dir::execute(entity::scripted_drone & drone)
         {
             drone.push_stack(_rand_dir());
             return 0;
         }
 
-        unsigned int mine::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int mine::execute(entity::scripted_drone & drone)
         {
             int y(drone.pop_stack());
             int x(drone.pop_stack());
 
-            drone.universe()->send_action(which_queue,
+            drone.universe()->send_action(
                     static_cast<action_generic*>(
                         new action::mine_location( util::coord_pair(x,y),
                             MINE_FUEL_AMOUNT, drone)));
             return 2;
         }
         
-        unsigned int unload::execute(size_t which_queue, entity::scripted_drone & drone)
+        unsigned int unload::execute(entity::scripted_drone & drone)
         {
             if ( UNLOAD_FUEL_AMOUNT < drone.get_fuel() )
             {
                int y(drone.pop_stack());
                int x(drone.pop_stack());
 
-               drone.universe()->send_action(which_queue,
+               drone.universe()->send_action(
                        static_cast<action_generic*>(
                            new action::unload_fuel( util::coord_pair(x,y),
                                UNLOAD_FUEL_AMOUNT, drone)));
@@ -176,7 +176,7 @@ namespace autonomy {
             else 
             {
                 drone.drain_fuel(drone.get_fuel());
-                drone.universe()->send_action(which_queue, 
+                drone.universe()->send_action( 
                                               new action::hide_entity(drone));
                 return 2;
             }

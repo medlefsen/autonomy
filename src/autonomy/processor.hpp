@@ -25,7 +25,7 @@ namespace autonomy
         public:
         static const int TICKS_PER_SECOND = 30;
             processor()
-                : going(false), queue_index(0)
+                : going(false)
             {
             }
             //! copy constructor
@@ -75,11 +75,6 @@ namespace autonomy
             //! Can cause a deadlock if done from within a entity controller.
             void reset();
            
-            //! returns the current action queue
-            size_t current_queue() const
-            {
-                return queue_index;
-            }
             //! Returns if the processor is running
             bool is_going() const 
             {
@@ -106,7 +101,6 @@ namespace autonomy
                 remove_mutex.lock();
                 update_entity_list();
                 {
-                    ar & BOOST_SERIALIZATION_NVP(queue_index);
                     ar & BOOST_SERIALIZATION_NVP(_entity_list);
                 }
                 add_mutex.unlock();
@@ -137,7 +131,6 @@ namespace autonomy
             mutable boost::mutex remove_mutex;
 
             std::atomic<bool> going;
-            size_t queue_index;
     };
 
 }

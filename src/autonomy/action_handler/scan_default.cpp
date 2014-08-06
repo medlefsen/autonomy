@@ -11,8 +11,7 @@ namespace autonomy
     namespace action_handler
     {
 
-        void scan_default::execute( entity::universe & entity, 
-                                    size_t which_queue )
+        void scan_default::execute( entity::universe & entity )
         {
             location_module & loc(entity.location_module());
             BOOST_FOREACH(action::scan * s, _action_group)
@@ -23,12 +22,11 @@ namespace autonomy
                 action::scan_response* 
                     sr(new action::scan_response(loc.query(s->location())));
 
-                (s->subject())->send_action(which_queue, sr);
+                (s->subject())->send_action(sr);
             }
         }
 
-        void scan_response_default::execute( entity::scripted_drone & entity, 
-                                             size_t which_queue )
+        void scan_response_default::execute( entity::scripted_drone & entity )
         {
             BOOST_FOREACH(action::scan_response * sr, _action_group)
             {

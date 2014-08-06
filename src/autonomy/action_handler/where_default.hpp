@@ -18,7 +18,7 @@ namespace autonomy
             public:
                 virtual ~where_default(){}
 
-                virtual void execute( entity::universe & entity, size_t which_queue );
+                virtual void execute( entity::universe & entity );
 
             private:
                 friend class boost::serialization::access;
@@ -35,7 +35,7 @@ namespace autonomy
             public:
                 virtual ~where_response_default(){}
 
-                virtual void execute( entity::scripted_drone & entity, size_t which_queue );
+                virtual void execute( entity::scripted_drone & entity );
 
             private:
                 friend class boost::serialization::access;

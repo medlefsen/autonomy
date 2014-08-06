@@ -31,10 +31,9 @@ namespace autonomy
         public:
             virtual ~entity_generic(){}
 
-            virtual void activate(size_t which_queue) = 0;
+            virtual void activate() = 0;
 
-            virtual void send_action(size_t which_queue, 
-                                     action_generic* new_action) = 0;
+            virtual void send_action(action_generic* new_action) = 0;
         private:
             friend class boost::serialization::access;
             template < class Archive >
@@ -55,27 +54,29 @@ namespace autonomy
                 clear_actions(1);
             }
 
-            virtual void activate(size_t which_queue)
+            virtual void activate()
             {
-                handle_actions(which_queue);
-                controller(which_queue);
+                which_queue_ = 1 - which_queue_;
+                handle_actions(which_queue_);
+                controller();
             }
 
-            virtual void send_action(size_t which_queue, action_generic* new_action)
+            virtual void send_action(action_generic* new_action)
             {
-                _action_lists[1 - which_queue].push_back(static_cast<action_base<EntityT>*>(new_action));
+                _action_lists[1 - which_queue_].push_back(static_cast<action_base<EntityT>*>(new_action));
             }
 
         protected:
-            const std::vector< action_generic* >& get_actions(size_t which_queue)
+            const std::vector< action_generic* >& get_actions()
             {
-                return _action_lists[which_queue];
+                return _action_lists[which_queue_];
             }
 
         private:
+            int which_queue_{0};
             std::vector< action_base<EntityT>* > _action_lists[2];
 
-            virtual void controller(size_t which_queue) = 0;
+            virtual void controller() = 0;
 
             virtual void handle_actions(size_t which_queue);
 

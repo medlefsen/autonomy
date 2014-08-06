@@ -39,7 +39,7 @@ namespace autonomy {
 
                 _action_handler_relation_t _action_handler_relation;
 
-                virtual void controller(size_t which_queue) = 0;
+                virtual void controller() = 0;
 
                 friend class boost::serialization::access;
                 template < class Archive >

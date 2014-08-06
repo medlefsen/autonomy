@@ -63,7 +63,7 @@ BOOST_CLASS_EXPORT(autonomy::script_builtins::equals)
 
 namespace autonomy { namespace script_builtins {
 
-unsigned int dup::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int dup::execute(entity::scripted_drone & drone)
 {
     int top = drone.pop_stack();
     drone.push_stack(top);
@@ -71,13 +71,13 @@ unsigned int dup::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int pop::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int pop::execute(entity::scripted_drone & drone)
 {
     drone.pop_stack();
     return 0;
 }
 
-unsigned int add::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int add::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -85,7 +85,7 @@ unsigned int add::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int sub::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int sub::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -93,7 +93,7 @@ unsigned int sub::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int multiply::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int multiply::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -101,8 +101,8 @@ unsigned int multiply::execute(size_t which_queue, entity::scripted_drone & dron
     return 0;
 }
 
-//! execute(size_t which_queue, entity::scripted_drone & drone)
-unsigned int divide::execute(size_t which_queue, entity::scripted_drone & drone)
+//! execute(entity::scripted_drone & drone)
+unsigned int divide::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -110,7 +110,7 @@ unsigned int divide::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int power::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int power::execute(entity::scripted_drone & drone)
 {
     int base      = drone.pop_stack();
     int exponent  = drone.pop_stack();
@@ -119,7 +119,7 @@ unsigned int power::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int cond_jump::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int cond_jump::execute(entity::scripted_drone & drone)
 {
   int line = drone.pop_stack();
 	int cond = drone.pop_stack();
@@ -130,7 +130,7 @@ unsigned int cond_jump::execute(size_t which_queue, entity::scripted_drone & dro
     return 0;
 }
 
-unsigned int load::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int load::execute(entity::scripted_drone & drone)
 {
 	int id = drone.pop_stack();
 	int val = drone.get_local_var(id);
@@ -138,7 +138,7 @@ unsigned int load::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int store::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int store::execute(entity::scripted_drone & drone)
 {
 	int val = drone.pop_stack();
 	int id = drone.pop_stack();
@@ -146,21 +146,21 @@ unsigned int store::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int jump::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int jump::execute(entity::scripted_drone & drone)
 {
 	int line = drone.pop_stack();
 	drone.goto_inst(line);
     return 0;
 }
 
-unsigned int rel_jump::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int rel_jump::execute(entity::scripted_drone & drone)
 {
 	int off = drone.pop_stack();
 	drone.move_inst(off);
     return 0;
 }
 
-unsigned int cond_rel_jump::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int cond_rel_jump::execute(entity::scripted_drone & drone)
 {
     int off = drone.pop_stack();
 	int cond = drone.pop_stack();
@@ -171,7 +171,7 @@ unsigned int cond_rel_jump::execute(size_t which_queue, entity::scripted_drone &
     return 0;
 }
 
-unsigned int equals::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int equals::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -182,7 +182,7 @@ unsigned int equals::execute(size_t which_queue, entity::scripted_drone & drone)
     return 0;
 }
 
-unsigned int less_than::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int less_than::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -193,7 +193,7 @@ unsigned int less_than::execute(size_t which_queue, entity::scripted_drone & dro
     return 0;
 }
 
-unsigned int logical_and::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int logical_and::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -204,7 +204,7 @@ unsigned int logical_and::execute(size_t which_queue, entity::scripted_drone & d
     return 0;
 }
 
-unsigned int logical_or::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int logical_or::execute(entity::scripted_drone & drone)
 {
 	int right = drone.pop_stack();
 	int left = drone.pop_stack();
@@ -215,7 +215,7 @@ unsigned int logical_or::execute(size_t which_queue, entity::scripted_drone & dr
     return 0;
 }
 
-unsigned int logical_not::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int logical_not::execute(entity::scripted_drone & drone)
 {
 	int val = drone.pop_stack();
 	if (val == 0)
@@ -225,7 +225,7 @@ unsigned int logical_not::execute(size_t which_queue, entity::scripted_drone & d
     return 0;
 }
 
-unsigned int literal::execute(size_t which_queue, entity::scripted_drone & drone)
+unsigned int literal::execute(entity::scripted_drone & drone)
 {
 	drone.push_stack(_val);
     return 0;

@@ -13,8 +13,7 @@ namespace autonomy
     namespace action_handler
     {
 
-        void create_asteroid_default::execute( entity::universe & entity, 
-                                               size_t which_queue )
+        void create_asteroid_default::execute( entity::universe & entity )
         {
             location_module & loc  (entity.location_module());
             
@@ -35,12 +34,11 @@ namespace autonomy
                     car = static_cast<action_generic*>(new action::create_asteroid_response(false));
 		    std::cerr << "Warning!  Asteroid lost (created on top of other entity)" << std::endl;
 	       }
-               (ca->subject())->send_action(which_queue, car);
+               (ca->subject())->send_action(car);
             }
         }
 
-        void create_asteroid_response_default::execute( entity::drone & entity, 
-                                                        size_t which_queue )
+        void create_asteroid_response_default::execute( entity::drone & entity )
         {}
     }
 }

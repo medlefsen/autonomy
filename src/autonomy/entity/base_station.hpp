@@ -26,7 +26,7 @@ namespace autonomy {
 
                 base_station(){}
 
-                virtual void controller(size_t which_queue);
+                virtual void controller();
 
                 friend class boost::serialization::access;
                 template < class Archive >

@@ -13,7 +13,7 @@ namespace autonomy
     namespace action_handler
     {
 
-        void create_drone_default::execute( entity::universe & entity, size_t which_queue )
+        void create_drone_default::execute( entity::universe & entity )
         {
             location_module & loc (entity.location_module());
 
@@ -35,11 +35,11 @@ namespace autonomy
                     cdr = static_cast<action_generic*>(new action::create_drone_response(false));
               	    std::cerr << "Warning!  Drone lost (created on top of other entity)" << std::endl;
 	       }
-               (cd->subject())->send_action(which_queue, cdr);
+               (cd->subject())->send_action(cdr);
             }
         }
 
-        void create_drone_response_default::execute( entity::drone & entity, size_t which_queue )
+        void create_drone_response_default::execute( entity::drone & entity )
         {}
     }
 }

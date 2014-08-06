@@ -17,7 +17,7 @@ namespace autonomy
             public:
                 virtual ~hide_entity_default(){} 
 
-                virtual void execute( entity::universe & entity, size_t which_queue );
+                virtual void execute( entity::universe & entity );
 
             private:
                 friend class boost::serialization::access;
@@ -34,7 +34,7 @@ namespace autonomy
             public:
                 virtual ~destroy_entity_default(){}
 
-                virtual void execute( entity::universe & entity, size_t which_queue );
+                virtual void execute( entity::universe & entity );
 
             private:
                 friend class boost::serialization::access;

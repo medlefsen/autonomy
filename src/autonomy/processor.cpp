@@ -11,7 +11,7 @@
 namespace autonomy
 {
     processor::processor(const processor& copy)
-        : going(false), queue_index(copy.queue_index)
+        : going(false)
     {
         copy.lock();
         _entity_list = copy._entity_list;
@@ -66,13 +66,13 @@ namespace autonomy
             std::set<entity_id_t>::iterator i = _entity_list.begin();
             while(i != _entity_list.end())
             {
-                (**i).activate(current_queue());
+                (**i).activate();
                 ++i;
             }
 #ifdef DEBUG
             std::cout << "Processor: Finish Tick" << std::endl;
 #endif
-            queue_index = 1 - queue_index;
+            
         }
         unlock(); 
         timespec t = { 0 , NANOSECONDS / TICKS_PER_SECOND };

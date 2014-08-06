@@ -11,20 +11,17 @@ namespace autonomy
     namespace action_handler
     {
 
-        void mine_default::execute( entity::asteroid & entity, 
-                                    size_t which_queue )
+        void mine_default::execute( entity::asteroid & entity )
         {
             BOOST_FOREACH(action::mine *  mine_act, _action_group)
             {
                 int fuel_obtained = std::max(0, std::min(mine_act->fuel(), entity.get_fuel()));
-                (mine_act->subject())->send_action(which_queue,
-                        new action::mine_response(fuel_obtained));
+                (mine_act->subject())->send_action(new action::mine_response(fuel_obtained));
                 entity.drain_fuel(fuel_obtained);
             }
         }
 
-        void mine_location_default::execute( entity::universe & entity, 
-                                             size_t which_queue )
+        void mine_location_default::execute( entity::universe & entity )
         {
             location_module & loc(entity.location_module());
 
@@ -37,14 +34,14 @@ namespace autonomy
                 if (object != entity_id_t() 
                         && typeid(*object) == typeid(entity::asteroid) )
                 {
-                    object->send_action(which_queue,
+                    object->send_action(
                             static_cast<action_generic*>(
                                 new action::mine(mine_loc->fuel(),
                                                  mine_loc->subject())));
                 }
                 else
                 {
-                    mine_loc->subject()->send_action(which_queue,
+                    mine_loc->subject()->send_action(
                             static_cast<action_generic*>(
                                 new action::mine_response(0)));
                 }
@@ -52,8 +49,7 @@ namespace autonomy
 
         }
 
-        void mine_response_default::execute( entity::scripted_drone & entity, 
-                                             size_t which_queue )
+        void mine_response_default::execute( entity::scripted_drone & entity )
         {
             BOOST_FOREACH(action::mine_response * mr, _action_group)
             {

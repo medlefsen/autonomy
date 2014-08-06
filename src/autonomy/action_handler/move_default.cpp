@@ -9,8 +9,7 @@ namespace autonomy
     namespace action_handler
     {
 
-        void move_direction_default::execute( entity::universe & entity, 
-                                              size_t which_queue )
+        void move_direction_default::execute( entity::universe & entity )
         {
             location_module & loc(entity.location_module());
             BOOST_FOREACH(action::move_direction * md, _action_group)
@@ -38,12 +37,11 @@ namespace autonomy
                 {
                     mdr = static_cast<action_generic*>(new action::move_direction_response(false));
                 }
-                (md->subject())->send_action(which_queue, mdr);
+                (md->subject())->send_action(mdr);
             }
         }
 
-        void move_direction_response_default::execute( entity::scripted_drone & entity, 
-                                                       size_t which_queue )
+        void move_direction_response_default::execute( entity::scripted_drone & entity )
         {
             BOOST_FOREACH(action::move_direction_response * mdr, _action_group)
             {

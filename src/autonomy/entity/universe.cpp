@@ -11,7 +11,7 @@ namespace autonomy
 {
     namespace entity
     {
-        void universe::controller(size_t which_queue)
+        void universe::controller()
         {}
 
         void universe::add(entity_id_t entity_ptr)

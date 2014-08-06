@@ -27,7 +27,7 @@ namespace autonomy {
 
                 entity_id_t _uni;
 
-                virtual void controller(size_t which_queue); 
+                virtual void controller(); 
 
                 template < class Archive >
                     void serialize( Archive & ar, const unsigned int version )

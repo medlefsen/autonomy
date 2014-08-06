@@ -16,7 +16,7 @@ namespace autonomy
             public:
                 virtual ~create_station_default(){} 
 
-                virtual void execute( entity::universe & entity, size_t which_queue );
+                virtual void execute( entity::universe & entity );
 
             private:
                 friend class boost::serialization::access;
