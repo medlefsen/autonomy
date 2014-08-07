@@ -18,7 +18,7 @@
 #include <autonomy/compiler/parse_node_attributes.hpp>
 #include <autonomy/compiler/translator_exceptions.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

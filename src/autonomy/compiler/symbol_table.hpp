@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

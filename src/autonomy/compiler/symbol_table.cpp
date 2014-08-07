@@ -6,7 +6,7 @@
 #include <utility>
 #include <cassert>
 
-namespace autonomy
+namespace autonomy 
 {
 	namespace compiler
 	{

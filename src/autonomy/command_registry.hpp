@@ -15,7 +15,7 @@
 #include <autonomy/util/serialization.hpp>
 #include <autonomy/script_instruction.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
 	class command_registry
 	{

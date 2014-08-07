@@ -3,7 +3,7 @@
 
 #include <autonomy/compiler/type.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

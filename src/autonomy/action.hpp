@@ -13,7 +13,7 @@
 #include <autonomy/util/serialization.hpp>
 #include <autonomy/action_handler.fwd.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     //! \class
     //! \brief Fundamental base class of all actions.

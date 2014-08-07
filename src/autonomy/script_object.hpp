@@ -13,12 +13,12 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/thread/mutex.hpp>
 
-#include <autonomy/entity/scripted_drone.hpp>
+#include <autonomy/standard/scripted_drone.hpp>
 #include <autonomy/instruction_list.hpp>
 #include <autonomy/compiler/constants.hpp>
 #include <autonomy/util/serialization.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     typedef size_t script_object_id_t;
     class script_object

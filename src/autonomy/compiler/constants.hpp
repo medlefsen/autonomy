@@ -13,7 +13,7 @@
 #include <boost/spirit/include/classic_position_iterator.hpp>
 #include <boost/spirit/include/classic_parse_tree.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

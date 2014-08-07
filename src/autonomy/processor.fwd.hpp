@@ -1,4 +1,4 @@
-namespace autonomy
+namespace autonomy 
 {
     class processor;
 }

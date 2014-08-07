@@ -9,7 +9,7 @@
 #include <memory>
 #include <type_traits>
 
-namespace autonomy
+namespace autonomy 
 {
   template<typename Parent>
   class generic_ui

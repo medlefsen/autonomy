@@ -10,20 +10,20 @@
 #include <boost/archive/archive_exception.hpp>
 
 #include <autonomy/game.hpp>
-#include <autonomy/entity/universe.hpp>
+#include <autonomy/universe.hpp>
 
 #ifndef DUI
-#include <autonomy/gui.hpp>
+#include <autonomy/standard/gui.hpp>
 #endif
 
-namespace autonomy
+namespace autonomy 
 {
     game::game()
         : autonomy::processor(),
-          _uni(new entity::universe(*static_cast<game*>(this))),
+          _uni(new universe(*static_cast<game*>(this))),
           _uis{
 #ifndef DUI
-            generic_ui<game>::create<gui<game>>()
+            generic_ui<game>::create<standard::gui<game>>()
 #endif
           }
     {

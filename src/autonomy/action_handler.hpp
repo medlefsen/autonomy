@@ -25,7 +25,7 @@
 
 #include <autonomy/util/id.hpp>
 #include <autonomy/action.hpp>
-namespace autonomy
+namespace autonomy 
 {
     //! \class
     //! \brief Fundamental base class of all action_handlers.

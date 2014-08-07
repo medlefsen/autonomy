@@ -18,7 +18,7 @@
 #include <autonomy/util/coord_pair.hpp>
 #include <autonomy/util/serialization.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     //! \class location_module
     //! \brief The location_module tracks the locations of every object

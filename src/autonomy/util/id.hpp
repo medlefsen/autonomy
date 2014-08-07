@@ -2,7 +2,7 @@
 #define AUTONOMY_UTIL_ID_HPP
 #include <typeinfo>
 #include <string>
-namespace autonomy
+namespace autonomy 
 {
     namespace util
     {

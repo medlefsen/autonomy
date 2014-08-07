@@ -16,7 +16,7 @@
 #include <autonomy/entity.hpp>
 #include <atomic>
 
-namespace autonomy
+namespace autonomy 
 {
     class processor
     {

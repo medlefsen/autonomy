@@ -1,7 +1,7 @@
 #ifndef AUTONOMY_ACTION_FWD_HPP
 #define AUTONOMY_ACTION_FWD_HPP
 #include <autonomy/util/id.hpp>
-namespace autonomy
+namespace autonomy 
 {
     class action_generic;
 

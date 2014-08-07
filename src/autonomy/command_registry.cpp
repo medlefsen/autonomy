@@ -9,7 +9,7 @@
 
 #include <autonomy/command_registry.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
 	//! Adds a name/instruction pair to the registry 
 	void command_registry::add_command(std::string name, boost::shared_ptr< script_instruction > inst)	

@@ -8,7 +8,7 @@
 #include <boost/foreach.hpp>
 #include <ctime>
 
-namespace autonomy
+namespace autonomy 
 {
     processor::processor(const processor& copy)
         : going(false)

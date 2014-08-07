@@ -6,7 +6,7 @@
 
 #include <autonomy/location_module.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     
         entity_id_t location_module::query( util::coord_pair location ) const

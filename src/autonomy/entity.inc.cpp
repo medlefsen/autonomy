@@ -9,7 +9,7 @@
 #include <boost/bind.hpp>
 #include <autonomy/action_handler.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     template < typename EntityT >
     void entity_base<EntityT>::clear_actions(size_t which_queue)

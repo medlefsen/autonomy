@@ -8,7 +8,7 @@
 
 #include <autonomy/compiler/parser_ids.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

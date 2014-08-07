@@ -9,7 +9,7 @@
 #include <autonomy/compiler/parser_ids.hpp>
 #include <autonomy/compiler/lexer_ids.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {
@@ -55,7 +55,7 @@ namespace autonomy
                 }
                 return (std::make_pair(true,
                                        ins
-                                       + new script_builtins::literal(val)));
+                                       + new literal(val)));
             }
             else if ( prev_node_type == lex::ID_TOK_ID )
             {
@@ -66,9 +66,9 @@ namespace autonomy
                     throw (undeclared_variable(prev_node_attr.value()));
                 }
                 return (std::make_pair(true, ins
-                                       + new script_builtins::literal(
+                                       + new literal(
                                            static_cast< int >(loc))
-                                       + new script_builtins::load));
+                                       + new load));
             }
             else if ( prev_node_type == parse::CMD_ID )
             {
@@ -103,7 +103,7 @@ namespace autonomy
                 {
                     // factor as right-most child
                     return (std::make_pair(true,
-                                           _left + ins + new script_builtins::power));
+                                           _left + ins + new power));
                 }
             }
             else if ( prev_node_type == lex::EXPOP_ID )
@@ -133,12 +133,12 @@ namespace autonomy
                 if ( prev_node_attr.value() == "/" )
                 {
                     _op = boost::shared_ptr< script_instruction >(
-                        new script_builtins::divide);
+                        new divide);
                 }
                 else
                 {
                     _op = boost::shared_ptr< script_instruction >(
-                        new script_builtins::multiply);
+                        new multiply);
                 }
                 return std::make_pair(true, instruction_list());
             }
@@ -183,12 +183,12 @@ namespace autonomy
                 if ( prev_node_attr.value() == "-" )
                 {
                     _op = boost::shared_ptr< script_instruction >(
-                        new script_builtins::sub);
+                        new sub);
                 }
                 else
                 {
                     _op = boost::shared_ptr< script_instruction >(
-                        new script_builtins::add);
+                        new add);
                 }
                 return std::make_pair(true, instruction_list());
             }
@@ -233,12 +233,12 @@ namespace autonomy
                 if ( prev_node_attr.value() == "<" )
                 {
                     _op = boost::shared_ptr< script_instruction >
-                          ( new script_builtins::less_than );
+                          ( new less_than );
                 }
                 else if ( prev_node_attr.value() == "=" )
                 {
                     _op = boost::shared_ptr< script_instruction >
-                          ( new script_builtins::equals );
+                          ( new equals );
                 }
                 return std::make_pair(true, instruction_list());
             }
@@ -291,7 +291,7 @@ namespace autonomy
                     {
                         return std::make_pair(true,
                                               ins
-                                              + new script_builtins::logical_not);
+                                              + new logical_not);
                     }
                     else
                     {
@@ -340,7 +340,7 @@ namespace autonomy
                 return std::make_pair(
                            true,
                            _left + ins +
-                           new script_builtins::logical_and);
+                           new logical_and);
             }
 
             throw (corrupted_parse_tree(_node_type, prev_node_type));
@@ -383,7 +383,7 @@ namespace autonomy
                 return std::make_pair(
                            true,
                            _left + ins +
-                           new script_builtins::logical_or);
+                           new logical_or);
             }
 
             throw (corrupted_parse_tree(_node_type, prev_node_type));
@@ -455,11 +455,11 @@ namespace autonomy
 
                 // at this point the variable is known to be declared and of the
                 // right type
-                return std::make_pair(true, ins + new script_builtins::literal(loc));
+                return std::make_pair(true, ins + new literal(loc));
             }
             else if ( prev_node_type == parse::EXPR_ID )
             {
-                return (std::make_pair(true, ins + new script_builtins::store));
+                return (std::make_pair(true, ins + new store));
             }
 
             throw (corrupted_parse_tree(_node_type, prev_node_type));
@@ -483,7 +483,7 @@ namespace autonomy
 
             if(!(result_pair.first)
                || (result_pair.second !=
-                   (il + new script_builtins::literal(st.lookup_symbol("$prev")))))
+                   (il + new literal(st.lookup_symbol("$prev")))))
             {
                 return "Error 1";
             }
@@ -525,19 +525,19 @@ namespace autonomy
                 if ( ins.size() == 0  )
                 {
                     return std::make_pair(true, _pre_decl
-                                          + new script_builtins::literal(
+                                          + new literal(
                                               _mem_loc_first)
                                           + ins
-                                          + new script_builtins::store);
+                                          + new store);
                 }
                 else
                 {
                     return std::make_pair(true,
                                           _pre_decl
-                                          + new script_builtins::literal(
+                                          + new literal(
                                               _mem_loc_first)
                                           + ins
-                                          + new script_builtins::store );
+                                          + new store );
                 }
             }
             else if (prev_node_type == parse::STMT_ID)
@@ -568,7 +568,7 @@ namespace autonomy
             }
             else if ( prev_node_type == parse::BEXPR_ID )
             {
-                _left = _left + ins + new script_builtins::logical_not;
+                _left = _left + ins + new logical_not;
                 return(std::make_pair(true, instruction_list()));
             }
             else if ( prev_node_type == parse::STMTLST_ID )
@@ -582,22 +582,22 @@ namespace autonomy
                 {
                     // a slight optimization for empty continuations
                     return std::make_pair(true, _left 
-                                              + new script_builtins::literal(_body.size()+1)
-                                              + new script_builtins::cond_rel_jump
+                                              + new literal(_body.size()+1)
+                                              + new cond_rel_jump
                                               + _body );
                 }
                 else
                 {
                     return(std::make_pair(true, _left
-                                          + new script_builtins::literal(_body.size()+3)
-                                          + new script_builtins::cond_rel_jump
+                                          + new literal(_body.size()+3)
+                                          + new cond_rel_jump
                                           + _body
                                           // we must add one because we want to be
                                           // one _past_ the final instruction of
                                           // the following block
-                                          + new script_builtins::literal(ins.size()
+                                          + new literal(ins.size()
                                                                      +1)
-                                          + new script_builtins::rel_jump
+                                          + new rel_jump
                                           + ins));
                 }
             }
@@ -628,18 +628,18 @@ namespace autonomy
                     {
                         // a slight optimization for empty continuations
                         return std::make_pair(true, _left 
-                                + new script_builtins::literal(_body.size()+1)
-                                + new script_builtins::cond_rel_jump
+                                + new literal(_body.size()+1)
+                                + new cond_rel_jump
                                 + _body );
                     }
                     else
                     {
                         instruction_list neg_jump
-                            = inst_list(new script_builtins::literal(_body.size()+3))
-                                + new script_builtins::cond_rel_jump;
+                            = inst_list(new literal(_body.size()+3))
+                                + new cond_rel_jump;
                         instruction_list pos_jump
-                            = inst_list(new script_builtins::literal(ins.size()+1))
-                            + new script_builtins::rel_jump;
+                            = inst_list(new literal(ins.size()+1))
+                            + new rel_jump;
 
                         return(std::make_pair(true, _left
                                     + neg_jump 
@@ -656,7 +656,7 @@ namespace autonomy
             }
             else if ( prev_node_type == parse::BEXPR_ID )
             {
-                _left = ins + new script_builtins::logical_not;
+                _left = ins + new logical_not;
                 return(std::make_pair(true, instruction_list()));
             }
             else if ( prev_node_type == lex::ELSE_TOK_ID )
@@ -693,18 +693,18 @@ namespace autonomy
             }
             else if ( prev_node_type == parse::BEXPR_ID )
             {
-                _condition = ins + new script_builtins::logical_not;
+                _condition = ins + new logical_not;
                 return std::make_pair(true, instruction_list());
             }
             else if ( prev_node_type == lex::RBR_ID )
             {
                 return std::make_pair(true, _left 
                         + _condition
-                        + new script_builtins::literal(_body.size()+3)
-                        + new script_builtins::cond_rel_jump
+                        + new literal(_body.size()+3)
+                        + new cond_rel_jump
                         + _body
-                        + new script_builtins::literal((_body.size()+_condition.size()+3)*(-1))
-                        + new script_builtins::rel_jump);
+                        + new literal((_body.size()+_condition.size()+3)*(-1))
+                        + new rel_jump);
             }
             else if ( prev_node_type == parse::STMTLST_ID )
             {
@@ -732,8 +732,8 @@ namespace autonomy
             {
                 return std::make_pair(true, ins
                                             // go to script start
-                                            + new script_builtins::literal(0)
-                                            + new script_builtins::jump );
+                                            + new literal(0)
+                                            + new jump );
             }
 
             throw (corrupted_parse_tree(_node_type, prev_node_type));
@@ -747,7 +747,7 @@ namespace autonomy
             {
                 if ( prev_node_type == parse::CMD_ID )
                 {
-                    return std::make_pair(true, (ins + new script_builtins::pop));
+                    return std::make_pair(true, (ins + new pop));
                 }
                 else
                 {

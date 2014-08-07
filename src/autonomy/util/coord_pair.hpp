@@ -8,7 +8,7 @@
 #include <boost/integer_traits.hpp>
 #include <autonomy/util/serialization.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace util
     {

@@ -20,7 +20,7 @@
 #include <autonomy/compiler/translator_exceptions.hpp>
 #include <autonomy/compiler/translator_functors.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

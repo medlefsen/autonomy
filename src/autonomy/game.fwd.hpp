@@ -1,6 +1,6 @@
 #ifndef AUTONOMY_GAME_FWD_HPP
 #define AUTONOMY_GAME_FWD_HPP
-namespace autonomy
+namespace autonomy 
 {
     class game;
 }

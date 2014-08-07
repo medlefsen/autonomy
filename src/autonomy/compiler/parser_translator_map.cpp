@@ -7,7 +7,7 @@
 
 #include <autonomy/compiler/parser_translator_map.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

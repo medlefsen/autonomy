@@ -1,5 +1,5 @@
 #include <autonomy/script_instruction.fwd.hpp>
-#include <autonomy/entity/scripted_drone.fwd.hpp>
+#include <autonomy/standard/scripted_drone.fwd.hpp>
 #ifndef AUTONOMY_SCRIPT_INSTRUCTION_HPP
 #define AUTONOMY_SCRIPT_INSTRUCTION_HPP
 
@@ -7,13 +7,13 @@
 #include <typeinfo>
 #include <autonomy/util/serialization.hpp>
 
-namespace autonomy {
-
+namespace autonomy 
+{
     class script_instruction
     {
         friend class boost::serialization::access;
         private:
-            virtual unsigned int virtual_execute(entity::scripted_drone & drone) = 0;
+            virtual unsigned int virtual_execute(standard::scripted_drone & drone) = 0;
             virtual std::string virtual_name() const = 0;
 
         protected:
@@ -22,7 +22,7 @@ namespace autonomy {
         public:
             virtual ~script_instruction()
             {}
-            unsigned int execute(entity::scripted_drone & drone)
+            unsigned int execute(standard::scripted_drone & drone)
             {
                 return virtual_execute(drone);
             }
@@ -50,7 +50,7 @@ namespace autonomy {
         : public script_instruction
     {
         friend class boost::serialization::access;
-        virtual unsigned int virtual_execute( entity::scripted_drone & drone);
+        virtual unsigned int virtual_execute( standard::scripted_drone & drone);
         virtual std::string virtual_name() const;
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -63,7 +63,7 @@ namespace autonomy {
 
     template < typename subclass >
     unsigned int script_instruction_base< subclass >::virtual_execute(
-        entity::scripted_drone & drone)
+        standard::scripted_drone & drone)
     {
         return static_cast< subclass* >(this)->execute(drone);
     }

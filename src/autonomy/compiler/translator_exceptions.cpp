@@ -5,7 +5,7 @@
 
 #include <autonomy/compiler/translator_exceptions.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

@@ -5,7 +5,7 @@
 #define AUTONOMY_COMPILER_TYPE_TYPE_HPP
 #include <string>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

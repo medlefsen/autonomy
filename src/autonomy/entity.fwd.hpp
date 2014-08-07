@@ -1,7 +1,7 @@
 #ifndef AUTONOMY_ENTITY_FWD_HPP
 #define AUTONOMY_ENTITY_FWD_HPP
 #include <autonomy/util/id.hpp>
-namespace autonomy
+namespace autonomy 
 {
     class entity_generic;
     typedef entity_generic & entity_ref_t;

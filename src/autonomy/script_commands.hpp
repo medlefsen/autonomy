@@ -3,9 +3,10 @@
 #include <boost/random.hpp>
 
 #include <autonomy/script_instruction.hpp>
-#include <autonomy/entity/scripted_drone.hpp>
+#include <autonomy/standard/scripted_drone.hpp>
 
-namespace autonomy {
+namespace autonomy 
+{
     //! \brief Move command.
     //! Takes 2 "directions", up and right.
     //! A direction is either positive, 0 or negative
@@ -13,7 +14,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "move"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -26,7 +27,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "get_x"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -39,7 +40,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "get_y"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -54,7 +55,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "scan"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -67,7 +68,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "is_drone"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -80,7 +81,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "is_asteroid"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -93,7 +94,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "is_base"; }
-        unsigned int execute(entity::scripted_drone & drone );
+        unsigned int execute(standard::scripted_drone & drone );
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -110,7 +111,7 @@ namespace autonomy {
         rand_dir()
         {}
         static std::string name() { return "rand_dir"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         static boost::mt19937 rng;
         static boost::uniform_int<> dir;
         static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > _rand_dir;
@@ -128,7 +129,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "mine"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
@@ -143,7 +144,7 @@ namespace autonomy {
     {
         friend class boost::serialization::access;
         static std::string name() { return "unload"; }
-        unsigned int execute(entity::scripted_drone & drone);
+        unsigned int execute(standard::scripted_drone & drone);
         private:
         template<class Archive>
             void serialize(Archive & ar, const unsigned int version)

@@ -21,7 +21,7 @@
 #include <autonomy/compiler/constants.hpp>
 #include <autonomy/compiler/parse_node_attributes.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

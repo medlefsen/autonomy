@@ -13,7 +13,7 @@
 #include <autonomy/generic_ui.hpp>
 #include <vector>
 
-namespace autonomy
+namespace autonomy 
 {
     class game
         : public processor

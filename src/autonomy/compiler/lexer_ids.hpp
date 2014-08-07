@@ -4,7 +4,7 @@
 #ifndef AUTONOMY_COMPILER_LEXER_PARSER_IDS
 #define AUTONOMY_COMPILER_LEXER_PARSER_IDS
 
-namespace autonomy
+namespace autonomy 
 {
     namespace compiler
     {

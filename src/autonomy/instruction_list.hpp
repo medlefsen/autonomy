@@ -11,7 +11,8 @@
 
 #include <autonomy/script_instruction.hpp>
 
-namespace autonomy {
+namespace autonomy 
+{
     typedef std::vector< boost::shared_ptr< script_instruction > > instruction_list;
 
     inline

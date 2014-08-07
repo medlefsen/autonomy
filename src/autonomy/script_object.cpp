@@ -18,7 +18,7 @@
 #include <autonomy/compiler/translator_functors.hpp>
 #include <autonomy/compiler/parser_translator_map.hpp>
 
-namespace autonomy
+namespace autonomy 
 {
     script_object_id_t script_object::_next_id =
         boost::integer_traits< script_object_id_t >::const_min;
