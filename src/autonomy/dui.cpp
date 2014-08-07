@@ -267,7 +267,7 @@ namespace autonomy {
 	      else
 	      {
 	         get_game().uni()->send_action(
-                      (new actor::create_asteroid(fuel,
+                      (action::create<actor::create_asteroid>(fuel,
                                                    entity_loc,
                                                    get_game().uni())));
          }
@@ -320,7 +320,7 @@ namespace autonomy {
 #endif
    
            get_game().uni()->send_action(
-                     (new actor::create_drone(fuel,
+                     (action::create<actor::create_drone>(fuel,
                                                entity_loc,
                                                compiled_script,
                                                get_game().uni())));
@@ -566,8 +566,7 @@ namespace autonomy {
             std::cerr << "start_game(): send create_station action to _uni"
                       << std::endl;
 #endif
-            get_game().uni()->send_action(static_cast<action_generic*>(
-                        new actor::create_station(STATION_FUEL, station_loc)));
+            get_game().uni()->send_action(action::create<actor::create_station>(STATION_FUEL, station_loc));
          }
       }
 

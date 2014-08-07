@@ -19,10 +19,7 @@ namespace autonomy
 #ifdef DEBUG
                 std::cout << "Universe: Start scan action handler.\n";
 #endif
-                actor::scan_response* 
-                    sr(new actor::scan_response(loc.query(s->location())));
-
-                (s->subject())->send_action(sr);
+                s->subject()->send_action(action::create<actor::scan_response>(loc.query(s->location())));
             }
         }
 

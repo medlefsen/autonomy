@@ -16,7 +16,7 @@ namespace autonomy
             for(auto& mine_act : _action_group)
             {
                 int fuel_obtained = std::max(0, std::min(mine_act->fuel(), entity.get_fuel()));
-                (mine_act->subject())->send_action(new actor::mine_response(fuel_obtained));
+                (mine_act->subject())->send_action(action::create<actor::mine_response>(fuel_obtained));
                 entity.drain_fuel(fuel_obtained);
             }
         }
@@ -34,16 +34,11 @@ namespace autonomy
                 if (object != entity_id_t() 
                         && typeid(*object) == typeid(entity::asteroid) )
                 {
-                    object->send_action(
-                            static_cast<action_generic*>(
-                                new actor::mine(mine_loc->fuel(),
-                                                 mine_loc->subject())));
+                    object->send_action(action::create<actor::mine>(mine_loc->fuel(), mine_loc->subject()));
                 }
                 else
                 {
-                    mine_loc->subject()->send_action(
-                            static_cast<action_generic*>(
-                                new actor::mine_response(0)));
+                    mine_loc->subject()->send_action(action::create<actor::mine_response>(0));
                 }
             }
 

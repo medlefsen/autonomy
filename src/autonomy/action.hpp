@@ -58,11 +58,17 @@ namespace autonomy
         : act_(std::shared_ptr<const action_generic>(action))
         { }
 
+        template<typename Action>
+        explicit action(std::shared_ptr<Action>&& act)
+        : act_(std::move(act))
+        { }
+
 
       template<typename Action, typename... Args>
-        explicit action(Args&&... args)
-        : act_(std::make_shared<Action>(std::forward<Args>(args)...))
-        { }
+        static action create(Args&&... args)
+        {
+          return action(std::make_shared<Action>(std::forward<Args>(args)...));
+        }
 
       action_handler_id_t default_handler_type() const {
         return act_->default_handler_type();

@@ -54,9 +54,7 @@ namespace autonomy {
                 drone.drain_fuel(MOVE_FUEL_COST);
                 int vert(drone.pop_stack());
                 int horz(drone.pop_stack());
-                drone.universe()->send_action(
-                        static_cast<action_generic*>(
-                            new actor::move_direction(horz, vert, drone)));
+                drone.universe()->send_action(action::create<actor::move_direction>(horz, vert, drone));
 #if DEBUG
                 std::cerr << "Created move action, sent:  " << entity_id_t(drone) << std::endl; 
 #endif
@@ -66,24 +64,20 @@ namespace autonomy {
             {
                 drone.drain_fuel(drone.get_fuel());
                 drone.universe()->send_action( 
-                                              new actor::hide_entity(drone));
+                                              action::create<actor::hide_entity>(drone));
                 return 1;
             }
         }
 
         unsigned int get_x::execute(entity::scripted_drone & drone)
         {
-            drone.universe()->send_action(
-                    static_cast<action_generic*>(
-                        new actor::where(actor::where::X, drone)));
+            drone.universe()->send_action(action::create<actor::where>(actor::where::X, drone));
             return 1;
         }
 
         unsigned int get_y::execute(entity::scripted_drone & drone)
         {
-            drone.universe()->send_action(
-                    static_cast<action_generic*>(
-                        new actor::where(actor::where::Y, drone)));
+            drone.universe()->send_action(action::create<actor::where>(actor::where::Y, drone));
             return 1;
         }
 
@@ -94,16 +88,14 @@ namespace autonomy {
                 int y(drone.pop_stack());
                 int x(drone.pop_stack());
                 drone.drain_fuel(SCAN_FUEL_COST);
-                drone.universe()->send_action(
-                        static_cast<action_generic*>(
-                            new actor::scan(util::coord_pair(x, y), drone)));
+                drone.universe()->send_action(action::create<actor::scan>(util::coord_pair(x, y), drone));
                 return 1;
             }
             else 
             {
                 drone.drain_fuel(drone.get_fuel());
                 drone.universe()->send_action( 
-                                              new actor::hide_entity(drone));
+                                              action::create<actor::hide_entity>(drone));
                 return 1;
             }
         }
@@ -153,10 +145,7 @@ namespace autonomy {
             int y(drone.pop_stack());
             int x(drone.pop_stack());
 
-            drone.universe()->send_action(
-                    static_cast<action_generic*>(
-                        new actor::mine_location( util::coord_pair(x,y),
-                            MINE_FUEL_AMOUNT, drone)));
+            drone.universe()->send_action(action::create<actor::mine_location>( util::coord_pair(x,y), MINE_FUEL_AMOUNT, drone));
             return 2;
         }
         
@@ -167,17 +156,14 @@ namespace autonomy {
                int y(drone.pop_stack());
                int x(drone.pop_stack());
 
-               drone.universe()->send_action(
-                       static_cast<action_generic*>(
-                           new actor::unload_fuel( util::coord_pair(x,y),
-                               UNLOAD_FUEL_AMOUNT, drone)));
+               drone.universe()->send_action(action::create<actor::unload_fuel>( util::coord_pair(x,y), UNLOAD_FUEL_AMOUNT, drone));
                return 2;
             }
             else 
             {
                 drone.drain_fuel(drone.get_fuel());
                 drone.universe()->send_action( 
-                                              new actor::hide_entity(drone));
+                                              action::create<actor::hide_entity>(drone));
                 return 2;
             }
         }

@@ -26,16 +26,16 @@ namespace autonomy
                     new_loc(util::coord_pair(loc.locate(entity_id_t(md->subject())).x() + x, 
                                 loc.locate(entity_id_t(md->subject())).y() + y));
 
-                action_generic* mdr;
+                action mdr;
                 // a default constructed entity_id_t means "not found"
                 if (loc.query(new_loc) == entity_id_t())
                 {
                     loc.move(entity_id_t(md->subject()), new_loc);
-                    mdr = static_cast<action_generic*>(new actor::move_direction_response(true));
+                    mdr = action::create<actor::move_direction_response>(true);
                 }
                 else
                 {
-                    mdr = static_cast<action_generic*>(new actor::move_direction_response(false));
+                    mdr = action::create<actor::move_direction_response>(false);
                 }
                 (md->subject())->send_action(mdr);
             }

@@ -23,16 +23,16 @@ namespace autonomy
                util::coord_pair drone_loc(cd->location());
                entity_id_t      new_drone(static_cast<entity_generic*>
                                    (new entity::scripted_drone(me, cd->script(), cd->fuel())));
-               action_generic*  cdr;
+               action           cdr;
 
                if (loc.move(new_drone, drone_loc))
                {
-                    cdr = static_cast<action_generic*>(new actor::create_drone_response(true));
+                    cdr = action::create<actor::create_drone_response>(true);
                     entity.add(new_drone);
                }
                else
                {
-                    cdr = static_cast<action_generic*>(new actor::create_drone_response(false));
+                    cdr = action::create<actor::create_drone_response>(false);
               	    std::cerr << "Warning!  Drone lost (created on top of other entity)" << std::endl;
 	       }
                (cd->subject())->send_action(cdr);

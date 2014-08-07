@@ -34,10 +34,6 @@ namespace autonomy
 
             virtual void activate() = 0;
 
-            void send_action(action_generic* new_action) const
-            {
-              send_action(action(new_action));
-            }
             virtual void send_action(action new_action) const = 0;
         private:
             friend class boost::serialization::access;
