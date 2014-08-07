@@ -31,7 +31,7 @@ namespace autonomy
             {
                 if ( get_fuel() <= 0 )
                 {
-                    universe()->send_action(action::create<actor::destroy_entity>(*this));
+                    universe()->send_action<actor::destroy_entity>(*this);
                     return;
                 }
                 else

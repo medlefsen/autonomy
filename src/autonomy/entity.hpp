@@ -34,6 +34,12 @@ namespace autonomy
 
             virtual void activate() = 0;
 
+            template<typename Action, typename... Args>
+            void send_action(Args&&... args) const
+            {
+              send_action(action::create<Action>(std::forward<Args>(args)...));
+            }
+
             virtual void send_action(action new_action) const = 0;
         private:
             friend class boost::serialization::access;

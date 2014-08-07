@@ -15,7 +15,7 @@ namespace autonomy
             {
                 util::coord_pair where(loc.locate(entity_id_t(wa->subject())));
                 auto coord = wa->query_dimension() == actor::where::X ? where.x() : where.y();
-                wa->subject()->send_action(action::create<actor::where_response>(coord));
+                wa->subject()->send_action<actor::where_response>(coord);
             }
         }
 

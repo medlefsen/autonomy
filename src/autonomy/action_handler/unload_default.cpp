@@ -16,7 +16,7 @@ namespace autonomy
             for(auto& unload_act : _action_group)
             {
                 int fuel_unloaded = std::max(0, std::min(unload_act->fuel(), entity.get_fuel()));
-                (unload_act->subject())->send_action(action::create<actor::unload_response>(fuel_unloaded));
+                (unload_act->subject())->send_action<actor::unload_response>(fuel_unloaded);
                 entity.add_fuel(fuel_unloaded);
             }
         }
@@ -34,11 +34,11 @@ namespace autonomy
                 if (object != entity_id_t() 
                         && typeid(*object) == typeid(entity::base_station) )
                 {
-                    object->send_action(action::create<actor::unload>(unload_loc->fuel(), unload_loc->subject()));
+                    object->send_action<actor::unload>(unload_loc->fuel(), unload_loc->subject());
                 }
                 else
                 {
-                    unload_loc->subject()->send_action(action::create<actor::unload_response>(0));
+                    unload_loc->subject()->send_action<actor::unload_response>(0);
                 }
             }
 
