@@ -8,18 +8,18 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class unload;
         class unload_fuel;
         class unload_response;
     }
 
-    typedef action_handler_base<action::unload,entity::base_station>
+    typedef action_handler_base<actor::unload,entity::base_station>
         unload_handler_base_t;
-    typedef action_handler_base<action::unload_fuel,entity::universe>
+    typedef action_handler_base<actor::unload_fuel,entity::universe>
         unload_fuel_handler_base_t;
-    typedef action_handler_base<action::unload_response,entity::scripted_drone>
+    typedef action_handler_base<actor::unload_response,entity::scripted_drone>
         unload_response_handler_base_t;
 }
 #endif

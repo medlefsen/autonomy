@@ -16,7 +16,7 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class hide_entity
             : public action_base<entity::universe>
@@ -34,9 +34,9 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::hide_entity_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
                
-                entity_id_t entity() { return _entity; }
+                entity_id_t entity() const { return _entity; }
             private:
                 hide_entity(){}
 
@@ -67,9 +67,9 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::destroy_entity_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
-                entity_id_t entity() { return _entity; }
+                entity_id_t entity() const { return _entity; }
             private:
                 destroy_entity(){}
 

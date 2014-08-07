@@ -12,7 +12,7 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class move_direction
             : public action_base<entity::universe>
@@ -31,7 +31,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::move_direction_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 int horizontal () const { return _horizontal; }
                 int vertical () const { return _vertical; }
@@ -70,7 +70,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::move_direction_response_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 bool success () const { return _success; }
             private:

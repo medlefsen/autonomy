@@ -8,18 +8,18 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class mine;
         class mine_location;
         class mine_response;
     }
 
-    typedef action_handler_base<action::mine,entity::asteroid>
+    typedef action_handler_base<actor::mine,entity::asteroid>
         mine_handler_base_t;
-    typedef action_handler_base<action::mine_location,entity::universe>
+    typedef action_handler_base<actor::mine_location,entity::universe>
         mine_location_handler_base_t;
-    typedef action_handler_base<action::mine_response,entity::scripted_drone>
+    typedef action_handler_base<actor::mine_response,entity::scripted_drone>
         mine_response_handler_base_t;
 }
 #endif

@@ -7,15 +7,15 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class where;
         class where_response;
     }
 
-    typedef action_handler_base<action::where, entity::universe>
+    typedef action_handler_base<actor::where, entity::universe>
         where_handler_base_t;
-    typedef action_handler_base<action::where_response, entity::scripted_drone>
+    typedef action_handler_base<actor::where_response, entity::scripted_drone>
         where_response_handler_base_t;
 }
 #endif

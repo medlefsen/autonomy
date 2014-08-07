@@ -14,7 +14,7 @@ namespace autonomy
     namespace action_handler
     {
         class mine_default
-            : public action_handler_base<action::mine, entity::asteroid>
+            : public action_handler_base<actor::mine, entity::asteroid>
         {
             public:
                 virtual ~mine_default(){}
@@ -31,7 +31,7 @@ namespace autonomy
         };
 
         class mine_location_default
-            : public action_handler_base<action::mine_location, entity::universe>
+            : public action_handler_base<actor::mine_location, entity::universe>
         {
             public:
                 virtual ~mine_location_default(){}
@@ -48,7 +48,7 @@ namespace autonomy
         };
 
         class mine_response_default
-            : public action_handler_base<action::mine_response, entity::scripted_drone>
+            : public action_handler_base<actor::mine_response, entity::scripted_drone>
         {
             public:
                 virtual ~mine_response_default(){}

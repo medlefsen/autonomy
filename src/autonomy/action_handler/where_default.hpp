@@ -13,7 +13,7 @@ namespace autonomy
     namespace action_handler
     {
         class where_default
-            : public action_handler_base<action::where, entity::universe>
+            : public action_handler_base<actor::where, entity::universe>
         {
             public:
                 virtual ~where_default(){}
@@ -30,7 +30,7 @@ namespace autonomy
         };
 
         class where_response_default
-            : public action_handler_base<action::where_response, entity::scripted_drone>
+            : public action_handler_base<actor::where_response, entity::scripted_drone>
         {
             public:
                 virtual ~where_response_default(){}

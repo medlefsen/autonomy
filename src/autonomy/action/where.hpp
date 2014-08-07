@@ -12,7 +12,7 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class where 
             : public action_base<entity::universe>
@@ -32,7 +32,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::where_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 dimension query_dimension() const { return _query_dimension; }
                 entity_id_t subject() const { return _subject; }
@@ -68,7 +68,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::where_response_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 int distance() const { return _distance; }
             private:

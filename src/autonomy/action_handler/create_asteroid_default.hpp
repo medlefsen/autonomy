@@ -15,7 +15,7 @@ namespace autonomy
     namespace action_handler
     {
         class create_asteroid_default
-            : public action_handler_base< action::create_asteroid, entity::universe >
+            : public action_handler_base< actor::create_asteroid, entity::universe >
         {
             public:
                 virtual ~create_asteroid_default(){}
@@ -32,7 +32,7 @@ namespace autonomy
         };
 
         class create_asteroid_response_default
-            : public action_handler_base< action::create_asteroid_response, entity::drone >
+            : public action_handler_base< actor::create_asteroid_response, entity::drone >
         {
             public:
                 virtual ~create_asteroid_response_default(){}

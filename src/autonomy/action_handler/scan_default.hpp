@@ -14,7 +14,7 @@ namespace autonomy
     namespace action_handler
     {
         class scan_default
-            : public action_handler_base<action::scan, entity::universe>
+            : public action_handler_base<actor::scan, entity::universe>
         {
             public:
                 virtual ~scan_default(){}
@@ -31,7 +31,7 @@ namespace autonomy
         };
 
         class scan_response_default
-            : public action_handler_base<action::scan_response, entity::scripted_drone>
+            : public action_handler_base<actor::scan_response, entity::scripted_drone>
         {
             public:
                 virtual ~scan_response_default(){}

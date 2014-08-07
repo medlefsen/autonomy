@@ -14,13 +14,13 @@ namespace autonomy
         void scan_default::execute( entity::universe & entity )
         {
             location_module & loc(entity.location_module());
-            BOOST_FOREACH(action::scan * s, _action_group)
+            for(auto& s : _action_group)
             {
 #ifdef DEBUG
                 std::cout << "Universe: Start scan action handler.\n";
 #endif
-                action::scan_response* 
-                    sr(new action::scan_response(loc.query(s->location())));
+                actor::scan_response* 
+                    sr(new actor::scan_response(loc.query(s->location())));
 
                 (s->subject())->send_action(sr);
             }
@@ -28,7 +28,7 @@ namespace autonomy
 
         void scan_response_default::execute( entity::scripted_drone & entity )
         {
-            BOOST_FOREACH(action::scan_response * sr, _action_group)
+            for(auto& sr : _action_group)
             {
                 if ( entity_id_t(sr->entity()) == entity_id_t() )
                 {

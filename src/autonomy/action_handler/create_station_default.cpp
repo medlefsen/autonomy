@@ -13,7 +13,7 @@ namespace autonomy
         {
             location_module & loc (entity.location_module());
 
-            for(action::create_station * cs : _action_group) 
+            for(auto& cs : _action_group) 
             //for ( _action_group_t::iterator i(_action_group.begin());
             //        i != _action_group.end();
             //        ++i )

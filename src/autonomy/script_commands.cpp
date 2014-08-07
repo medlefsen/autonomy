@@ -56,7 +56,7 @@ namespace autonomy {
                 int horz(drone.pop_stack());
                 drone.universe()->send_action(
                         static_cast<action_generic*>(
-                            new action::move_direction(horz, vert, drone)));
+                            new actor::move_direction(horz, vert, drone)));
 #if DEBUG
                 std::cerr << "Created move action, sent:  " << entity_id_t(drone) << std::endl; 
 #endif
@@ -66,7 +66,7 @@ namespace autonomy {
             {
                 drone.drain_fuel(drone.get_fuel());
                 drone.universe()->send_action( 
-                                              new action::hide_entity(drone));
+                                              new actor::hide_entity(drone));
                 return 1;
             }
         }
@@ -75,7 +75,7 @@ namespace autonomy {
         {
             drone.universe()->send_action(
                     static_cast<action_generic*>(
-                        new action::where(action::where::X, drone)));
+                        new actor::where(actor::where::X, drone)));
             return 1;
         }
 
@@ -83,7 +83,7 @@ namespace autonomy {
         {
             drone.universe()->send_action(
                     static_cast<action_generic*>(
-                        new action::where(action::where::Y, drone)));
+                        new actor::where(actor::where::Y, drone)));
             return 1;
         }
 
@@ -96,14 +96,14 @@ namespace autonomy {
                 drone.drain_fuel(SCAN_FUEL_COST);
                 drone.universe()->send_action(
                         static_cast<action_generic*>(
-                            new action::scan(util::coord_pair(x, y), drone)));
+                            new actor::scan(util::coord_pair(x, y), drone)));
                 return 1;
             }
             else 
             {
                 drone.drain_fuel(drone.get_fuel());
                 drone.universe()->send_action( 
-                                              new action::hide_entity(drone));
+                                              new actor::hide_entity(drone));
                 return 1;
             }
         }
@@ -155,7 +155,7 @@ namespace autonomy {
 
             drone.universe()->send_action(
                     static_cast<action_generic*>(
-                        new action::mine_location( util::coord_pair(x,y),
+                        new actor::mine_location( util::coord_pair(x,y),
                             MINE_FUEL_AMOUNT, drone)));
             return 2;
         }
@@ -169,7 +169,7 @@ namespace autonomy {
 
                drone.universe()->send_action(
                        static_cast<action_generic*>(
-                           new action::unload_fuel( util::coord_pair(x,y),
+                           new actor::unload_fuel( util::coord_pair(x,y),
                                UNLOAD_FUEL_AMOUNT, drone)));
                return 2;
             }
@@ -177,7 +177,7 @@ namespace autonomy {
             {
                 drone.drain_fuel(drone.get_fuel());
                 drone.universe()->send_action( 
-                                              new action::hide_entity(drone));
+                                              new actor::hide_entity(drone));
                 return 2;
             }
         }

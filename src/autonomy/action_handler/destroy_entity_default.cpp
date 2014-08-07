@@ -11,7 +11,7 @@ namespace autonomy
         void hide_entity_default::execute( entity::universe & entity )
         {
             location_module & loc (entity.location_module());
-            BOOST_FOREACH(action::hide_entity * he, _action_group)
+            for(auto& he : _action_group)
             {
                 loc.remove(he->entity());
             }
@@ -19,7 +19,7 @@ namespace autonomy
 
         void destroy_entity_default::execute( entity::universe & entity )
         {
-            BOOST_FOREACH(action::destroy_entity * de, _action_group)
+            for(auto& de : _action_group)
             {
                 entity.remove(de->entity());
             }

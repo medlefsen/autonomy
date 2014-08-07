@@ -11,7 +11,7 @@ namespace autonomy
     namespace action_handler
     {
         class create_station_default
-            : public action_handler_base<action::create_station, entity::universe>
+            : public action_handler_base<actor::create_station, entity::universe>
         {
             public:
                 virtual ~create_station_default(){} 

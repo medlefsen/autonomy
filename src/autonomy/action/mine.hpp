@@ -15,7 +15,7 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class mine 
             : public action_base<entity::asteroid>
@@ -36,7 +36,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::mine_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 int fuel() const { return _fuel; }
                 entity_id_t subject() const { return _subject; }
@@ -74,7 +74,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::mine_location_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 util::coord_pair location() const { return _location; }
                 int fuel() const { return _fuel; }
@@ -112,9 +112,9 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::mine_response_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
                
-                int fuel() { return _fuel; }
+                int fuel() const { return _fuel; }
             private:
                 mine_response(){}
                 int _fuel;

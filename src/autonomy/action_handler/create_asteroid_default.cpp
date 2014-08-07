@@ -17,7 +17,7 @@ namespace autonomy
         {
             location_module & loc  (entity.location_module());
             
-            for(action::create_asteroid * ca : _action_group)
+            for(auto ca : _action_group)
             {
                entity_id_t      me(entity);
                util::coord_pair asteroid_loc(ca->location());
@@ -26,12 +26,12 @@ namespace autonomy
 
                if (loc.move(new_asteroid, asteroid_loc))
                {
-                    car = static_cast<action_generic*>(new action::create_asteroid_response(true));
+                    car = static_cast<action_generic*>(new actor::create_asteroid_response(true));
                     entity.add(new_asteroid);
                }
                else
                {
-                    car = static_cast<action_generic*>(new action::create_asteroid_response(false));
+                    car = static_cast<action_generic*>(new actor::create_asteroid_response(false));
 		    std::cerr << "Warning!  Asteroid lost (created on top of other entity)" << std::endl;
 	       }
                (ca->subject())->send_action(car);

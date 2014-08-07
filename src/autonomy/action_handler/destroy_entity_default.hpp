@@ -12,7 +12,7 @@ namespace autonomy
     namespace action_handler
     {
         class hide_entity_default
-            : public action_handler_base< action::hide_entity, entity::universe >
+            : public action_handler_base< actor::hide_entity, entity::universe >
         {
             public:
                 virtual ~hide_entity_default(){} 
@@ -29,7 +29,7 @@ namespace autonomy
         };
 
         class destroy_entity_default
-            : public action_handler_base< action::destroy_entity, entity::universe >
+            : public action_handler_base< actor::destroy_entity, entity::universe >
         {
             public:
                 virtual ~destroy_entity_default(){}

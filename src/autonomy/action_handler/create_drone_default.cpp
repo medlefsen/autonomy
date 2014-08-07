@@ -17,7 +17,7 @@ namespace autonomy
         {
             location_module & loc (entity.location_module());
 
-            BOOST_FOREACH(action::create_drone * cd, _action_group)
+            for(auto& cd : _action_group)
             {
                entity_id_t      me(entity);
                util::coord_pair drone_loc(cd->location());
@@ -27,12 +27,12 @@ namespace autonomy
 
                if (loc.move(new_drone, drone_loc))
                {
-                    cdr = static_cast<action_generic*>(new action::create_drone_response(true));
+                    cdr = static_cast<action_generic*>(new actor::create_drone_response(true));
                     entity.add(new_drone);
                }
                else
                {
-                    cdr = static_cast<action_generic*>(new action::create_drone_response(false));
+                    cdr = static_cast<action_generic*>(new actor::create_drone_response(false));
               	    std::cerr << "Warning!  Drone lost (created on top of other entity)" << std::endl;
 	       }
                (cd->subject())->send_action(cdr);

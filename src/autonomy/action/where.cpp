@@ -3,20 +3,20 @@
 BOOST_CLASS_EXPORT(autonomy::where_handler_base_t);
 BOOST_CLASS_EXPORT(autonomy::where_response_handler_base_t);
 
-BOOST_CLASS_EXPORT(autonomy::action::where);
-BOOST_CLASS_EXPORT(autonomy::action::where_response);
+BOOST_CLASS_EXPORT(autonomy::actor::where);
+BOOST_CLASS_EXPORT(autonomy::actor::where_response);
 
 namespace autonomy
 {
 
-    namespace action
+    namespace actor
     {
-        action_handler_generic * where::default_handler()
+        action_handler_generic * where::default_handler() const
         {
             return new action_handler::where_default;
         }
 
-        action_handler_generic * where_response::default_handler()
+        action_handler_generic * where_response::default_handler() const
         {
             return new action_handler::where_response_default;
         }

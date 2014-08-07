@@ -13,10 +13,10 @@ namespace autonomy
 
         void unload_default::execute( entity::base_station & entity )
         {
-            BOOST_FOREACH(action::unload *  unload_act, _action_group)
+            for(auto& unload_act : _action_group)
             {
                 int fuel_unloaded = std::max(0, std::min(unload_act->fuel(), entity.get_fuel()));
-                (unload_act->subject())->send_action(new action::unload_response(fuel_unloaded));
+                (unload_act->subject())->send_action(new actor::unload_response(fuel_unloaded));
                 entity.add_fuel(fuel_unloaded);
             }
         }
@@ -25,7 +25,7 @@ namespace autonomy
         {
             location_module & loc(entity.location_module());
 
-            BOOST_FOREACH(action::unload_fuel * unload_loc, _action_group)
+            for(auto& unload_loc : _action_group)
             {
                 entity_id_t object(loc.query(unload_loc->location()));
                 
@@ -35,13 +35,13 @@ namespace autonomy
                         && typeid(*object) == typeid(entity::base_station) )
                 {
                     object->send_action(static_cast<action_generic*>(
-                                new action::unload(unload_loc->fuel(),
+                                new actor::unload(unload_loc->fuel(),
                                                  unload_loc->subject())));
                 }
                 else
                 {
                     unload_loc->subject()->send_action(static_cast<action_generic*>(
-                                new action::unload_response(0)));
+                                new actor::unload_response(0)));
                 }
             }
 
@@ -49,7 +49,7 @@ namespace autonomy
 
         void unload_response_default::execute( entity::scripted_drone & entity )
         {
-            BOOST_FOREACH(action::unload_response * ur, _action_group)
+            for(auto& ur : _action_group)
             {
                 entity.push_stack(ur->fuel());
                 entity.drain_fuel(ur->fuel());

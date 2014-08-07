@@ -11,6 +11,7 @@
 #include <vector>
 #include <list>
 #include <utility>
+#include <memory>
 #include <algorithm>
 
 #ifdef DEBUG
@@ -37,7 +38,10 @@ namespace autonomy
 
             virtual ~action_handler_generic(){}
 
-            virtual void append_action( action_generic & action ) = 0;
+            virtual void append_action( action act ) = 0;
+            void append_action( action_generic & act ) {
+              append_action(action(&act));
+            }
 
             virtual void operator()( entity_ref_t entity ) = 0;
 
@@ -68,9 +72,9 @@ namespace autonomy
                 clear();
             }
 
-            virtual void append_action( action_generic & action )
+            virtual void append_action( action act)
             {
-                _action_group.push_back(static_cast< ActionT* >(&action));
+                _action_group.push_back(act);
             }
 
             virtual void execute( TargetT & entity ) = 0;
@@ -86,7 +90,7 @@ namespace autonomy
             }
 
         protected:
-            typedef std::vector< ActionT* > _action_group_t;
+            typedef std::vector< std::shared_ptr<const ActionT> > _action_group_t;
             _action_group_t _action_group;
         private:
             friend class boost::serialization::access;
@@ -94,7 +98,6 @@ namespace autonomy
             void serialize( Archive & ar, const unsigned int version )
             {
                 ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(action_handler_generic);
-                ar & BOOST_SERIALIZATION_NVP(_action_group);
             }
     };
 

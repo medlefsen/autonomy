@@ -6,12 +6,12 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class create_station;
     }
 
-    typedef action_handler_base<action::create_station,entity::universe>
+    typedef action_handler_base<actor::create_station,entity::universe>
         create_station_handler_base_t;
 }
 #endif

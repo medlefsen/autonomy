@@ -17,7 +17,7 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class create_asteroid
             : public action_base<entity::universe>
@@ -38,7 +38,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::create_asteroid_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 entity_id_t subject() const { return _subject; }
                 util::coord_pair location() const { return _location; }
@@ -76,7 +76,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::create_asteroid_response_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 bool is_created () const
                 {

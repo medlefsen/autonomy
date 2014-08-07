@@ -6,15 +6,15 @@
 #include <autonomy/entity/scripted_drone.fwd.hpp>
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class move_direction;
         class move_direction_response;
     }
 
-    typedef action_handler_base<action::move_direction, entity::universe>
+    typedef action_handler_base<actor::move_direction, entity::universe>
         move_direction_handler_base_t;
-    typedef action_handler_base<action::move_direction_response, entity::scripted_drone>
+    typedef action_handler_base<actor::move_direction_response, entity::scripted_drone>
         move_direction_response_handler_base_t;
 }
 #endif

@@ -7,15 +7,15 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class scan;
         class scan_response;
     }
 
-    typedef action_handler_base<action::scan, entity::universe>
+    typedef action_handler_base<actor::scan, entity::universe>
         scan_handler_base_t;
-    typedef action_handler_base<action::scan_response, entity::scripted_drone>
+    typedef action_handler_base<actor::scan_response, entity::scripted_drone>
         scan_response_handler_base_t;
 }
 #endif

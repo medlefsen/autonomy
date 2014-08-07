@@ -12,7 +12,7 @@ namespace autonomy
         void move_direction_default::execute( entity::universe & entity )
         {
             location_module & loc(entity.location_module());
-            BOOST_FOREACH(action::move_direction * md, _action_group)
+            for(auto& md : _action_group)
             {
 #ifdef DEBUG
                 std::cout << "Universe: Start move action handler.\n";
@@ -31,11 +31,11 @@ namespace autonomy
                 if (loc.query(new_loc) == entity_id_t())
                 {
                     loc.move(entity_id_t(md->subject()), new_loc);
-                    mdr = static_cast<action_generic*>(new action::move_direction_response(true));
+                    mdr = static_cast<action_generic*>(new actor::move_direction_response(true));
                 }
                 else
                 {
-                    mdr = static_cast<action_generic*>(new action::move_direction_response(false));
+                    mdr = static_cast<action_generic*>(new actor::move_direction_response(false));
                 }
                 (md->subject())->send_action(mdr);
             }
@@ -43,7 +43,7 @@ namespace autonomy
 
         void move_direction_response_default::execute( entity::scripted_drone & entity )
         {
-            BOOST_FOREACH(action::move_direction_response * mdr, _action_group)
+            for(auto& mdr : _action_group)
             {
                 entity.push_stack(mdr->success());
             }

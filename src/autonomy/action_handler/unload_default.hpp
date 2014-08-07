@@ -14,7 +14,7 @@ namespace autonomy
     namespace action_handler
     {
         class unload_default
-            : public action_handler_base<action::unload, entity::base_station>
+            : public action_handler_base<actor::unload, entity::base_station>
         {
             public:
                 virtual ~unload_default(){}
@@ -31,7 +31,7 @@ namespace autonomy
         };
 
         class unload_fuel_default
-            : public action_handler_base<action::unload_fuel, entity::universe>
+            : public action_handler_base<actor::unload_fuel, entity::universe>
         {
             public:
                 virtual ~unload_fuel_default(){}
@@ -48,7 +48,7 @@ namespace autonomy
         };
 
         class unload_response_default
-            : public action_handler_base<action::unload_response, entity::scripted_drone>
+            : public action_handler_base<actor::unload_response, entity::scripted_drone>
         {
             public:
                 virtual ~unload_response_default(){}

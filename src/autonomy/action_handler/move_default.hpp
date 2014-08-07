@@ -10,7 +10,7 @@ namespace autonomy
     namespace action_handler
     {
         class move_direction_default
-            : public action_handler_base<action::move_direction, entity::universe>
+            : public action_handler_base<actor::move_direction, entity::universe>
         {
             public:
                 virtual ~move_direction_default(){}
@@ -27,7 +27,7 @@ namespace autonomy
         };
 
         class move_direction_response_default
-            : public action_handler_base<action::move_direction_response, entity::scripted_drone>
+            : public action_handler_base<actor::move_direction_response, entity::scripted_drone>
         {
             public:
                 virtual ~move_direction_response_default(){}

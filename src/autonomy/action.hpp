@@ -11,7 +11,7 @@
 #include <memory>
 
 #include <autonomy/util/serialization.hpp>
-#include <autonomy/action_handler.hpp>
+#include <autonomy/action_handler.fwd.hpp>
 
 namespace autonomy
 {
@@ -35,12 +35,55 @@ namespace autonomy
 
             virtual action_handler_id_t default_handler_type() const  = 0;
 
-            virtual action_handler_generic * default_handler() = 0;
+            virtual action_handler_generic * default_handler() const = 0;
         private:
             friend class boost::serialization::access;
             template < class Archive >
             void serialize( Archive & ar, const unsigned int version )
             {}
+    };
+
+    class action
+    {
+      public:
+        action() = default;
+        /*
+        action(const action& act) = default;
+        action(action&& act) = default;
+        action& operator=(const action&) = default;
+        action& operator=(const action&&) = default;
+        */
+
+        explicit action(action_generic* action)
+        : act_(std::shared_ptr<const action_generic>(action))
+        { }
+
+
+      template<typename Action, typename... Args>
+        explicit action(Args&&... args)
+        : act_(std::make_shared<Action>(std::forward<Args>(args)...))
+        { }
+
+      action_handler_id_t default_handler_type() const {
+        return act_->default_handler_type();
+      }
+
+      action_handler_generic * default_handler() const {
+        return act_->default_handler();
+      }
+
+      template<typename T>
+      operator std::shared_ptr<T>()
+      {
+        return std::dynamic_pointer_cast<T>(act_);
+      }
+
+      private:
+        std::shared_ptr<const action_generic> act_;
+        friend class boost::serialization::access;
+        template < class Archive >
+          void serialize( Archive & ar, const unsigned int version )
+          {}
     };
 
     //! \class
@@ -79,6 +122,13 @@ namespace autonomy
 
             bool operator() (const action_base< TargetT > & left,
                              const action_base< TargetT > & right)
+            {
+                return (left.default_handler_type() <
+                        right.default_handler_type());
+            }
+
+            bool operator() (const action& left,
+                             const action& right)
             {
                 return (left.default_handler_type() <
                         right.default_handler_type());

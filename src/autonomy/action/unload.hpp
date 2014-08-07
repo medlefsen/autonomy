@@ -18,7 +18,7 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class unload
             : public action_base<entity::base_station>
@@ -39,7 +39,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::unload_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 int fuel() const { return _fuel; }
                 entity_id_t subject() const { return _subject; }
@@ -77,7 +77,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::unload_fuel_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 util::coord_pair location() const { return _location; }
                 int fuel() const { return _fuel; }
@@ -115,9 +115,9 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::unload_response_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
                
-                int fuel() { return _fuel; }
+                int fuel() const { return _fuel; }
             private:
                 unload_response(){}
                 int _fuel;

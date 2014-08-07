@@ -13,10 +13,10 @@ namespace autonomy
 
         void mine_default::execute( entity::asteroid & entity )
         {
-            BOOST_FOREACH(action::mine *  mine_act, _action_group)
+            for(auto& mine_act : _action_group)
             {
                 int fuel_obtained = std::max(0, std::min(mine_act->fuel(), entity.get_fuel()));
-                (mine_act->subject())->send_action(new action::mine_response(fuel_obtained));
+                (mine_act->subject())->send_action(new actor::mine_response(fuel_obtained));
                 entity.drain_fuel(fuel_obtained);
             }
         }
@@ -25,7 +25,7 @@ namespace autonomy
         {
             location_module & loc(entity.location_module());
 
-            BOOST_FOREACH(action::mine_location * mine_loc, _action_group)
+            for(auto& mine_loc : _action_group)
             {
                 entity_id_t object(loc.query(mine_loc->location()));
                 
@@ -36,14 +36,14 @@ namespace autonomy
                 {
                     object->send_action(
                             static_cast<action_generic*>(
-                                new action::mine(mine_loc->fuel(),
+                                new actor::mine(mine_loc->fuel(),
                                                  mine_loc->subject())));
                 }
                 else
                 {
                     mine_loc->subject()->send_action(
                             static_cast<action_generic*>(
-                                new action::mine_response(0)));
+                                new actor::mine_response(0)));
                 }
             }
 
@@ -51,7 +51,7 @@ namespace autonomy
 
         void mine_response_default::execute( entity::scripted_drone & entity )
         {
-            BOOST_FOREACH(action::mine_response * mr, _action_group)
+            for(auto& mr : _action_group)
             {
                 entity.push_stack(mr->fuel());
                 entity.add_fuel(mr->fuel());

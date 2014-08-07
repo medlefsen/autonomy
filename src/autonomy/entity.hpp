@@ -12,6 +12,7 @@
 #include <typeinfo>
 #include <vector>
 #include <iostream>
+#include <mutex>
 
 #include <boost/foreach.hpp>
 #include <boost/shared_ptr.hpp>
@@ -33,7 +34,11 @@ namespace autonomy
 
             virtual void activate() = 0;
 
-            virtual void send_action(action_generic* new_action) = 0;
+            void send_action(action_generic* new_action) const
+            {
+              send_action(action(new_action));
+            }
+            virtual void send_action(action new_action) const = 0;
         private:
             friend class boost::serialization::access;
             template < class Archive >
@@ -61,20 +66,23 @@ namespace autonomy
                 controller();
             }
 
-            virtual void send_action(action_generic* new_action)
+            virtual void send_action(action new_action) const
             {
-                _action_lists[1 - which_queue_].push_back(static_cast<action_base<EntityT>*>(new_action));
+              std::lock_guard<std::mutex> lock{ action_list_mutex_ };
+              _action_lists[1 - which_queue_].push_back(new_action);
             }
 
         protected:
-            const std::vector< action_generic* >& get_actions()
+            std::vector< action > get_actions() const
             {
+                std::lock_guard<std::mutex> lock{ action_list_mutex_ };
                 return _action_lists[which_queue_];
             }
 
         private:
             int which_queue_{0};
-            std::vector< action_base<EntityT>* > _action_lists[2];
+            mutable std::mutex action_list_mutex_;
+            mutable std::vector< action > _action_lists[2];
 
             virtual void controller() = 0;
 

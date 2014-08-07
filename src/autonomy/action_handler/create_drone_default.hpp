@@ -14,7 +14,7 @@ namespace autonomy
     namespace action_handler
     {
         class create_drone_default
-            : public action_handler_base<action::create_drone, entity::universe>
+            : public action_handler_base<actor::create_drone, entity::universe>
         {
             public:
                 virtual ~create_drone_default(){} 
@@ -31,7 +31,7 @@ namespace autonomy
         };
 
         class create_drone_response_default
-            : public action_handler_base<action::create_drone_response, entity::drone>
+            : public action_handler_base<actor::create_drone_response, entity::drone>
         {
             public:
                 virtual ~create_drone_response_default(){} 

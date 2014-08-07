@@ -16,7 +16,7 @@
 
 namespace autonomy
 {
-    namespace action
+    namespace actor
     {
         class scan 
             : public action_base<entity::universe>
@@ -34,7 +34,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::scan_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 util::coord_pair location () const { return _location; }
                 entity_id_t subject () const { return _subject; }
@@ -69,7 +69,7 @@ namespace autonomy
                     return action_handler_id_t(static_cast<action_handler::scan_response_default*>(NULL));
                 }
 
-                virtual action_handler_generic * default_handler();
+                virtual action_handler_generic * default_handler() const;
 
                 entity_id_t entity () const { return _entity; }
             private:
