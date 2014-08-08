@@ -15,6 +15,24 @@ ExternalProject_Get_Property(CAF install_dir)
 set(CAF_INCLUDE_DIR ${install_dir}/include)
 set(CAF_LIB_DIR ${install_dir}/lib)
 
+ExternalProject_Add(
+  GMock
+  URL https://googlemock.googlecode.com/files/gmock-1.7.0.zip
+  URL_HASH SHA1=f9d9dd882a25f4069ed9ee48e70aff1b53e3c5a5
+
+  INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory <INSTALL_DIR>/lib
+          COMMAND ${CMAKE_COMMAND} -E copy_if_different <BINARY_DIR>/libgmock.a <INSTALL_DIR>/lib
+          COMMAND ${CMAKE_COMMAND} -E copy_if_different <BINARY_DIR>/libgmock_main.a <INSTALL_DIR>/lib
+          COMMAND ${CMAKE_COMMAND} -E copy_if_different <BINARY_DIR>/gtest/libgtest.a <INSTALL_DIR>/lib
+          COMMAND ${CMAKE_COMMAND} -E copy_if_different <BINARY_DIR>/gtest/libgtest_main.a <INSTALL_DIR>/lib
+          COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include <INSTALL_DIR>/include
+          COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/gtest/include/gtest <INSTALL_DIR>/include/gtest
+  )
+
+ExternalProject_Get_Property(GMock install_dir)
+set(GMOCK_INCLUDE_DIR ${install_dir}/include)
+set(GMOCK_LIB_DIR ${install_dir}/lib)
+
 include_directories( src ${CAF_INCLUDE_DIR} )
 link_directories( ${CAF_LIB_DIR} )
 
