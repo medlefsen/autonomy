@@ -23,7 +23,7 @@ set(GUI_LIBS -lSDL -lSDL_mixer -lSDL_image -lSDL_gfx -lSDL_ttf)
 
 add_compile_options(-Wall -DBOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE -DBOOST_SPIRIT_USE_OLD_NAMESPACE -fpermissive -ftemplate-depth=1024 -ftemplate-backtrace-limit=0 -std=gnu++11)
 
-add_executable(autonomy 
+add_library(autonomy_core
   ./src/autonomy/command_registry.cpp
   ./src/autonomy/compiler/parse_node_attributes.cpp
   ./src/autonomy/compiler/parser_translator_map.cpp
@@ -38,6 +38,9 @@ add_executable(autonomy
   ./src/autonomy/script_builtins.cpp
   ./src/autonomy/script_commands.cpp
   ./src/autonomy/script_object.cpp
+  )
+
+add_library(autonomy_standard
   ./src/autonomy/standard/dui.cpp
   ./src/autonomy/standard/asteroid.cpp
   ./src/autonomy/standard/base_station.cpp
@@ -63,7 +66,9 @@ add_executable(autonomy
   ./src/autonomy/standard/scan_default.cpp
   ./src/autonomy/standard/unload_default.cpp
   ./src/autonomy/standard/where_default.cpp
-  ./src/autonomy/standard/autonomy.cpp
 )
 
-target_link_libraries(autonomy ${CORE_LIBS} ${GUI_LIBS} )
+add_executable(autonomy ./src/autonomy/standard/autonomy.cpp)
+
+target_link_libraries(autonomy autonomy_standard autonomy_core autonomy_standard ${CORE_LIBS} ${GUI_LIBS})
+
