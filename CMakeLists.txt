@@ -90,3 +90,10 @@ add_executable(autonomy ./src/autonomy/standard/autonomy.cpp)
 
 target_link_libraries(autonomy autonomy_standard autonomy_core autonomy_standard ${CORE_LIBS} ${GUI_LIBS})
 
+enable_testing()
+
+link_directories(${GMOCK_LIB_DIR})
+add_executable(test_feature_actors src/test/feature/actors.cpp)
+target_include_directories(test_feature_actors PRIVATE ${GMOCK_INCLUDE_DIR})
+target_link_libraries(test_feature_actors autonomy_core autonomy_standard gmock_main gtest pthread)
+add_test(test_feature_actors test_feature_actors)
